@@ -1,5 +1,6 @@
 import json
 from typing import List
+from django.conf import settings
 
 import requests
 from traceback import format_exc
@@ -92,7 +93,7 @@ def find(func, list):
 
 class JudgeManager:
     def __init__(self):
-        self.url = "http://4.240.75.170"
+        self.url = settings.JUDGE_URL
 
     @staticmethod
     def create_default_code(name: str, inputs: List[dict]) -> dict:
