@@ -11,7 +11,7 @@ import jwt
 
 GOOGLE_ACCESS_TOKEN_OBTAIN_URL = 'https://oauth2.googleapis.com/token'
 GOOGLE_USER_INFO_URL = 'https://www.googleapis.com/oauth2/v3/userinfo'
-LOGIN_URL = f'https://leetclone-backend.onrender.com/api/v1/login/google/'
+LOGIN_URL = f'https://leetclone-backend.azurewebsites.com/api/v1/login/google/'
 
 def google_get_access_token(code:str, redirect_uri:str) -> str:
     data = {
@@ -43,7 +43,7 @@ def google_get_user_info(access_token:str) -> Dict[str, Any]:
 
 def get_user_data(validated_data):
     domain = settings.BASE_API_URL
-    redirect_uri = f"https://leetclone-backend.onrender.com/api/v1/login/google/"
+    redirect_uri = f"https://leetclone-backend.azurewebsites.com/api/v1/login/google/"
 
     code = validated_data.get("code")
     error = validated_data.get("error")

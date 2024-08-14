@@ -160,3 +160,6 @@ cython_debug/
 #.idea/
 problems_list.json
 create_problems.py
+/accounts/migrations
+/backend/migrations
+/problems/migrations
