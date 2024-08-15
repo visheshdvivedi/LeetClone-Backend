@@ -7,6 +7,7 @@ from .serializers import CreateAccountSerializer, RetrieveAccountSerializer, Lis
 from problems.models import Submission, DifficultyChoices, Problem
 from problems.serializers import SubmissionSerializer
 
+from django.conf import settings
 from django.shortcuts import redirect
 
 from rest_framework import status
@@ -134,6 +135,9 @@ class LogoutView(APIView):
 class GoogleLoginView(APIView):
     def get(self, request, *args, **kwargs):
         serializer = GoogleAuthSerializer(data=request.GET)
+        redirect_url = settings.GOOGLE_OAUTH_FRONTEND_REDIRECT_URL
+
+        print(f"Frontend redirect URL: {redirect_url}")
         
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -147,4 +151,4 @@ class GoogleLoginView(APIView):
         account = Account.objects.get(email=user_data['email'])
         refresh = RefreshToken.for_user(account)
 
-        return redirect(f"https://leetclone-frontend.vercel.app/login/google?access={str(refresh.access_token)}&refresh={str(refresh)}")
+        return redirect(f"{redirect_url}?access={str(refresh.access_token)}&refresh={str(refresh)}")

@@ -70,11 +70,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
-
 from os import getenv
 from dotenv import load_dotenv
 
+load_dotenv()
+
 DEBUG = getenv('DEBUG', True)
+
+print(getenv('PGHOST'))
 
 DATABASES = {
     'default': {
@@ -163,5 +166,7 @@ BASE_API_URL = os.environ.get("BASE_API_URL")
 
 GOOGLE_OAUTH_CLIENT_ID = os.environ.get("GOOGLE_OAUTH_CLIENT_ID")
 GOOGLE_OAUTH_CLIENT_SECRET = os.environ.get("GOOGLE_OAUTH_CLIENT_SECRET")
+GOOGLE_OAUTH_BACKEND_REDIRECT_URL = os.environ.get("GOOGLE_OAUTH_BACKEND_REDIRECT_URL")
+GOOGLE_OAUTH_FRONTEND_REDIRECT_URL = os.environ.get("GOOGLE_OAUTH_FRONTEND_REDIRECT_URL")
 
 JUDGE_URL = os.environ.get("JUDGE_URL")

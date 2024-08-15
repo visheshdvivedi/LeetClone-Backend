@@ -42,8 +42,11 @@ def google_get_user_info(access_token:str) -> Dict[str, Any]:
     return response.json()
 
 def get_user_data(validated_data):
+
     domain = settings.BASE_API_URL
-    redirect_uri = f"https://leetclone-backend.azurewebsites.net/api/v1/login/google/"
+    redirect_uri = settings.GOOGLE_OAUTH_BACKEND_REDIRECT_URL
+
+    print(f"Backend redirect uri: {redirect_uri}")
 
     code = validated_data.get("code")
     error = validated_data.get("error")
