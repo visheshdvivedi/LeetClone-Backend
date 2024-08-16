@@ -1,0 +1,1259 @@
+[
+    {
+        "name": "Two Sum",
+        "difficulty": 1,
+        "description": "Given an array of integers `nums` and an integer `target`, return indices of the two numbers such that they add up to `target`. You may assume that each input would have exactly one solution, and you may not use the same element twice.",
+        "tags": [
+            {
+                "name": "array"
+            },
+            {
+                "name": "hashmap"
+            },
+            {
+                "name": "two-pointer"
+            }
+        ],
+        "constraints": "2 <= nums.length <= 10^4, -10^9 <= nums[i] <= 10^9, -10^9 <= target <= 10^9",
+        "solutions": [
+            {
+                "name": "Brute Force",
+                "intution": "The simplest approach is to check every pair of numbers to see if they add up to the target.",
+                "algorithm": "Iterate through the array, for each element, iterate through the rest of the array to find if any pair sums up to the target. Return the indices of the two numbers.",
+                "implementations": [
+                    {
+                        "language": "612451a8-0b9e-42ae-b1c6-6c8a8689b8d9",
+                        "value": "class Solution:\n    def twoSum(self, nums, target):\n        for i in range(len(nums)):\n            for j in range(i + 1, len(nums)):\n                if nums[i] + nums[j] == target:\n                    return [i, j]"
+                    },
+                    {
+                        "language": "f184e7a9-4bbd-469f-901f-d56eb61c3e91",
+                        "value": "function twoSum(nums, target) {\n    for (let i = 0; i < nums.length; i++) {\n        for (let j = i + 1; j < nums.length; j++) {\n            if (nums[i] + nums[j] === target) {\n                return [i, j];\n            }\n        }\n    }\n}"
+                    },
+                    {
+                        "language": "15ded783-2c6c-4e09-947e-3f25c654ff12",
+                        "value": "class Solution {\n    public int[] twoSum(int[] nums, int target) {\n        for (int i = 0; i < nums.length; i++) {\n            for (int j = i + 1; j < nums.length; j++) {\n                if (nums[i] + nums[j] == target) {\n                    return new int[]{i, j};\n                }\n            }\n        }\n        return new int[0];\n    }\n}"
+                    }
+                ]
+            },
+            {
+                "name": "Hashmap",
+                "intution": "By using a hashmap, we can store the difference between the target and each number and check if that difference exists in the map.",
+                "algorithm": "Iterate through the array, for each element, calculate the difference between the target and the current element. Check if this difference exists in the hashmap. If it does, return the indices. If not, store the current element in the hashmap.",
+                "implementations": [
+                    {
+                        "language": "612451a8-0b9e-42ae-b1c6-6c8a8689b8d9",
+                        "value": "class Solution:\n    def twoSum(self, nums, target):\n        hashmap = {}\n        for i, num in enumerate(nums):\n            diff = target - num\n            if diff in hashmap:\n                return [hashmap[diff], i]\n            hashmap[num] = i"
+                    },
+                    {
+                        "language": "f184e7a9-4bbd-469f-901f-d56eb61c3e91",
+                        "value": "function twoSum(nums, target) {\n    const hashmap = {};\n    for (let i = 0; i < nums.length; i++) {\n        const diff = target - nums[i];\n        if (hashmap[diff] !== undefined) {\n            return [hashmap[diff], i];\n        }\n        hashmap[nums[i]] = i;\n    }\n}"
+                    },
+                    {
+                        "language": "15ded783-2c6c-4e09-947e-3f25c654ff12",
+                        "value": "class Solution {\n    public int[] twoSum(int[] nums, int target) {\n        Map<Integer, Integer> hashmap = new HashMap<>();\n        for (int i = 0; i < nums.length; i++) {\n            int diff = target - nums[i];\n            if (hashmap.containsKey(diff)) {\n                return new int[]{hashmap.get(diff), i};\n            }\n            hashmap.put(nums[i], i);\n        }\n        return new int[0];\n    }\n}"
+                    }
+                ]
+            }
+        ],
+        "testcases": [
+            {
+                "is_sample": true,
+                "inputs": [
+                    {
+                        "name": "nums",
+                        "type": 3,
+                        "value": "[2, 7, 11, 15]"
+                    },
+                    {
+                        "name": "target",
+                        "type": 1,
+                        "value": 9
+                    },
+                    {
+                        "name": "output",
+                        "type": 3,
+                        "value": "[0, 1]"
+                    }
+                ]
+            },
+            {
+                "is_sample": true,
+                "inputs": [
+                    {
+                        "name": "nums",
+                        "type": 3,
+                        "value": "[3, 2, 4]"
+                    },
+                    {
+                        "name": "target",
+                        "type": 1,
+                        "value": 6
+                    },
+                    {
+                        "name": "output",
+                        "type": 3,
+                        "value": "[1, 2]"
+                    }
+                ]
+            },
+            {
+                "is_sample": true,
+                "inputs": [
+                    {
+                        "name": "nums",
+                        "type": 3,
+                        "value": "[3, 3]"
+                    },
+                    {
+                        "name": "target",
+                        "type": 1,
+                        "value": 6
+                    },
+                    {
+                        "name": "output",
+                        "type": 3,
+                        "value": "[0, 1]"
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "nums",
+                        "type": 3,
+                        "value": "[1, 2, 3, 4, 5]"
+                    },
+                    {
+                        "name": "target",
+                        "type": 1,
+                        "value": 8
+                    },
+                    {
+                        "name": "output",
+                        "type": 3,
+                        "value": "[2, 4]"
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "nums",
+                        "type": 3,
+                        "value": "[1, 3, 5, 7]"
+                    },
+                    {
+                        "name": "target",
+                        "type": 1,
+                        "value": 10
+                    },
+                    {
+                        "name": "output",
+                        "type": 3,
+                        "value": "[1, 3]"
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "nums",
+                        "type": 3,
+                        "value": "[2, 4, 6, 8, 10]"
+                    },
+                    {
+                        "name": "target",
+                        "type": 1,
+                        "value": 12
+                    },
+                    {
+                        "name": "output",
+                        "type": 3,
+                        "value": "[1, 4]"
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "nums",
+                        "type": 3,
+                        "value": "[1, 2, 3, 4, 5, 6, 7, 8, 9]"
+                    },
+                    {
+                        "name": "target",
+                        "type": 1,
+                        "value": 17
+                    },
+                    {
+                        "name": "output",
+                        "type": 3,
+                        "value": "[7, 8]"
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "nums",
+                        "type": 3,
+                        "value": "[10, 20, 30, 40, 50]"
+                    },
+                    {
+                        "name": "target",
+                        "type": 1,
+                        "value": 50
+                    },
+                    {
+                        "name": "output",
+                        "type": 3,
+                        "value": "[1, 2]"
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "nums",
+                        "type": 3,
+                        "value": "[1, 1, 1, 1, 1, 1]"
+                    },
+                    {
+                        "name": "target",
+                        "type": 1,
+                        "value": 2
+                    },
+                    {
+                        "name": "output",
+                        "type": 3,
+                        "value": "[0, 1]"
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "nums",
+                        "type": 3,
+                        "value": "[1000000, 999999]"
+                    },
+                    {
+                        "name": "target",
+                        "type": 1,
+                        "value": 1999999
+                    },
+                    {
+                        "name": "output",
+                        "type": 3,
+                        "value": "[0, 1]"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Palindrome Check",
+        "difficulty": 1,
+        "description": "Given a string `s`, return `true` if it is a palindrome, and `false` otherwise. A string is a palindrome if it reads the same backward as forward.",
+        "tags": [
+            {
+                "name": "string"
+            },
+            {
+                "name": "two-pointer"
+            }
+        ],
+        "constraints": "1 <= s.length <= 10^5, s consists of only printable ASCII characters.",
+        "solutions": [
+            {
+                "name": "Two Pointers",
+                "intution": "To check if a string is a palindrome, we can compare characters from both ends towards the center.",
+                "algorithm": "Initialize two pointers, one at the start and the other at the end of the string. Move both pointers towards the center, comparing the characters at each step. If any mismatch is found, return false. If the pointers cross each other without finding any mismatch, return true.",
+                "implementations": [
+                    {
+                        "language": "612451a8-0b9e-42ae-b1c6-6c8a8689b8d9",
+                        "value": "class Solution:\n    def isPalindrome(self, s: str) -> bool:\n        left, right = 0, len(s) - 1\n        while left < right:\n            if s[left] != s[right]:\n                return False\n            left += 1\n            right -= 1\n        return True"
+                    },
+                    {
+                        "language": "f184e7a9-4bbd-469f-901f-d56eb61c3e91",
+                        "value": "function isPalindrome(s) {\n    let left = 0;\n    let right = s.length - 1;\n    while (left < right) {\n        if (s[left] !== s[right]) {\n            return false;\n        }\n        left++;\n        right--;\n    }\n    return true;\n}"
+                    },
+                    {
+                        "language": "15ded783-2c6c-4e09-947e-3f25c654ff12",
+                        "value": "class Solution {\n    public boolean isPalindrome(String s) {\n        int left = 0, right = s.length() - 1;\n        while (left < right) {\n            if (s.charAt(left) != s.charAt(right)) {\n                return false;\n            }\n            left++;\n            right--;\n        }\n        return true;\n    }\n}"
+                    }
+                ]
+            }
+        ],
+        "testcases": [
+            {
+                "is_sample": true,
+                "inputs": [
+                    {
+                        "name": "s",
+                        "type": 2,
+                        "value": "\"racecar\""
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": true
+                    }
+                ]
+            },
+            {
+                "is_sample": true,
+                "inputs": [
+                    {
+                        "name": "s",
+                        "type": 2,
+                        "value": "\"hello\""
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": false
+                    }
+                ]
+            },
+            {
+                "is_sample": true,
+                "inputs": [
+                    {
+                        "name": "s",
+                        "type": 2,
+                        "value": "\"level\""
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": true
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "s",
+                        "type": 2,
+                        "value": "\"madam\""
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": true
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "s",
+                        "type": 2,
+                        "value": "\"abcdefg\""
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": false
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "s",
+                        "type": 2,
+                        "value": "\"civic\""
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": true
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "s",
+                        "type": 2,
+                        "value": "\"a\""
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": true
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "s",
+                        "type": 2,
+                        "value": "\"ab\""
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": false
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "s",
+                        "type": 2,
+                        "value": "\"noon\""
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": true
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "s",
+                        "type": 2,
+                        "value": "\"palindrome\""
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": false
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Sum of Digits",
+        "difficulty": 0,
+        "description": "Given an integer `n`, return the sum of its digits. For example, if `n` is 123, the sum of its digits would be 1 + 2 + 3 = 6.",
+        "tags": [
+            {
+                "name": "math"
+            },
+            {
+                "name": "integer"
+            }
+        ],
+        "constraints": "0 <= n <= 10^9",
+        "solutions": [
+            {
+                "name": "Iterative Approach",
+                "intution": "To find the sum of digits, we can repeatedly extract the last digit and add it to the sum until all digits are processed.",
+                "algorithm": "Initialize a sum variable to 0. While the number `n` is greater than 0, extract the last digit using modulus operation (`n % 10`), add this digit to the sum, and remove the last digit from `n` using integer division by 10 (`n // 10`). Continue until `n` becomes 0. Return the sum.",
+                "implementations": [
+                    {
+                        "language": "612451a8-0b9e-42ae-b1c6-6c8a8689b8d9",
+                        "value": "class Solution:\n    def sumOfDigits(self, n: int) -> int:\n        total = 0\n        while n > 0:\n            total += n % 10\n            n //= 10\n        return total"
+                    },
+                    {
+                        "language": "f184e7a9-4bbd-469f-901f-d56eb61c3e91",
+                        "value": "function sumOfDigits(n) {\n    let total = 0;\n    while (n > 0) {\n        total += n % 10;\n        n = Math.floor(n / 10);\n    }\n    return total;\n}"
+                    },
+                    {
+                        "language": "15ded783-2c6c-4e09-947e-3f25c654ff12",
+                        "value": "class Solution {\n    public int sumOfDigits(int n) {\n        int total = 0;\n        while (n > 0) {\n            total += n % 10;\n            n /= 10;\n        }\n        return total;\n    }\n}"
+                    }
+                ]
+            }
+        ],
+        "testcases": [
+            {
+                "is_sample": true,
+                "inputs": [
+                    {
+                        "name": "n",
+                        "type": 1,
+                        "value": 123
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 6
+                    }
+                ]
+            },
+            {
+                "is_sample": true,
+                "inputs": [
+                    {
+                        "name": "n",
+                        "type": 1,
+                        "value": 0
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 0
+                    }
+                ]
+            },
+            {
+                "is_sample": true,
+                "inputs": [
+                    {
+                        "name": "n",
+                        "type": 1,
+                        "value": 987
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 24
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "n",
+                        "type": 1,
+                        "value": 456
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 15
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "n",
+                        "type": 1,
+                        "value": 2024
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 8
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "n",
+                        "type": 1,
+                        "value": 1000000
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "n",
+                        "type": 1,
+                        "value": 2345
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 14
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "n",
+                        "type": 1,
+                        "value": 1111
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 4
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "n",
+                        "type": 1,
+                        "value": 999999999
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 81
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Maximum of Two Numbers",
+        "difficulty": 0,
+        "description": "Given two integers `a` and `b`, return the maximum of the two numbers. For example, if `a` is 5 and `b` is 3, the result should be 5.",
+        "tags": [
+            {
+                "name": "math"
+            },
+            {
+                "name": "comparison"
+            }
+        ],
+        "constraints": "-10^9 <= a, b <= 10^9",
+        "solutions": [
+            {
+                "name": "Simple Comparison",
+                "intution": "To find the maximum of two numbers, simply compare them using conditional statements.",
+                "algorithm": "Compare the two numbers using an if-else statement. Return the number that is greater.",
+                "implementations": [
+                    {
+                        "language": "612451a8-0b9e-42ae-b1c6-6c8a8689b8d9",
+                        "value": "class Solution:\n    def maxOfTwoNumbers(self, a: int, b: int) -> int:\n        return a if a > b else b"
+                    },
+                    {
+                        "language": "f184e7a9-4bbd-469f-901f-d56eb61c3e91",
+                        "value": "function maxOfTwoNumbers(a, b) {\n    return a > b ? a : b;\n}"
+                    },
+                    {
+                        "language": "15ded783-2c6c-4e09-947e-3f25c654ff12",
+                        "value": "class Solution {\n    public int maxOfTwoNumbers(int a, int b) {\n        return a > b ? a : b;\n    }\n}"
+                    }
+                ]
+            }
+        ],
+        "testcases": [
+            {
+                "is_sample": true,
+                "inputs": [
+                    {
+                        "name": "a",
+                        "type": 1,
+                        "value": 7
+                    },
+                    {
+                        "name": "b",
+                        "type": 1,
+                        "value": 4
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 7
+                    }
+                ]
+            },
+            {
+                "is_sample": true,
+                "inputs": [
+                    {
+                        "name": "a",
+                        "type": 1,
+                        "value": -5
+                    },
+                    {
+                        "name": "b",
+                        "type": 1,
+                        "value": -3
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": -3
+                    }
+                ]
+            },
+            {
+                "is_sample": true,
+                "inputs": [
+                    {
+                        "name": "a",
+                        "type": 1,
+                        "value": 0
+                    },
+                    {
+                        "name": "b",
+                        "type": 1,
+                        "value": 0
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 0
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "a",
+                        "type": 1,
+                        "value": 1000000000
+                    },
+                    {
+                        "name": "b",
+                        "type": 1,
+                        "value": -1000000000
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 1000000000
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "a",
+                        "type": 1,
+                        "value": 123456789
+                    },
+                    {
+                        "name": "b",
+                        "type": 1,
+                        "value": 987654321
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 987654321
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "a",
+                        "type": 1,
+                        "value": -1
+                    },
+                    {
+                        "name": "b",
+                        "type": 1,
+                        "value": 1
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "a",
+                        "type": 1,
+                        "value": -999999999
+                    },
+                    {
+                        "name": "b",
+                        "type": 1,
+                        "value": -888888888
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": -888888888
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "a",
+                        "type": 1,
+                        "value": 999999999
+                    },
+                    {
+                        "name": "b",
+                        "type": 1,
+                        "value": 999999998
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 999999999
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "a",
+                        "type": 1,
+                        "value": -1
+                    },
+                    {
+                        "name": "b",
+                        "type": 1,
+                        "value": -1
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": -1
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "a",
+                        "type": 1,
+                        "value": 0
+                    },
+                    {
+                        "name": "b",
+                        "type": 1,
+                        "value": 100
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 100
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Find the Average of Numbers",
+        "difficulty": 0,
+        "description": "Given an array of integers `nums`, return the average of all the numbers in the array. The average is the sum of all the numbers divided by the number of elements.",
+        "tags": [
+            {
+                "name": "array"
+            },
+            {
+                "name": "math"
+            }
+        ],
+        "constraints": "1 <= nums.length <= 10^4, -10^9 <= nums[i] <= 10^9",
+        "solutions": [
+            {
+                "name": "Iterative Sum and Division",
+                "intution": "To calculate the average, sum up all the elements in the array and then divide by the number of elements.",
+                "algorithm": "Initialize a variable to store the sum of elements. Iterate through the array and add each element to the sum. Divide the total sum by the number of elements to get the average.",
+                "implementations": [
+                    {
+                        "language": "612451a8-0b9e-42ae-b1c6-6c8a8689b8d9",
+                        "value": "class Solution:\n    def findAverage(self, nums: List[int]) -> float:\n        return sum(nums) / len(nums)"
+                    },
+                    {
+                        "language": "f184e7a9-4bbd-469f-901f-d56eb61c3e91",
+                        "value": "function findAverage(nums) {\n    let sum = 0;\n    for (let num of nums) {\n        sum += num;\n    }\n    return sum / nums.length;\n}"
+                    },
+                    {
+                        "language": "15ded783-2c6c-4e09-947e-3f25c654ff12",
+                        "value": "class Solution {\n    public double findAverage(int[] nums) {\n        int sum = 0;\n        for (int num : nums) {\n            sum += num;\n        }\n        return (double) sum / nums.length;\n    }\n}"
+                    }
+                ]
+            }
+        ],
+        "testcases": [
+            {
+                "is_sample": true,
+                "inputs": [
+                    {
+                        "name": "nums",
+                        "type": 3,
+                        "value": "[1, 2, 3, 4, 5]"
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 3.0
+                    }
+                ]
+            },
+            {
+                "is_sample": true,
+                "inputs": [
+                    {
+                        "name": "nums",
+                        "type": 3,
+                        "value": "[10, 20, 30, 40]"
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 25.0
+                    }
+                ]
+            },
+            {
+                "is_sample": true,
+                "inputs": [
+                    {
+                        "name": "nums",
+                        "type": 3,
+                        "value": "[7, 8, 9]"
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 8.0
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Count the Vowels in a String",
+        "difficulty": 0,
+        "description": "Given a string `s`, count the number of vowels in it. Vowels are defined as 'a', 'e', 'i', 'o', 'u' (case-insensitive).",
+        "tags": [
+            {
+                "name": "string"
+            },
+            {
+                "name": "counting"
+            }
+        ],
+        "constraints": "1 <= s.length <= 10^4, s consists of printable ASCII characters.",
+        "solutions": [
+            {
+                "name": "Iterative Counting",
+                "intution": "To count the vowels, iterate through the string and check each character to see if it is a vowel.",
+                "algorithm": "Initialize a counter to 0. Iterate through each character in the string. If the character is a vowel, increment the counter. Return the counter value.",
+                "implementations": [
+                    {
+                        "language": "612451a8-0b9e-42ae-b1c6-6c8a8689b8d9",
+                        "value": "class Solution:\n    def countVowels(self, s: str) -> int:\n        vowels = set('aeiouAEIOU')\n        return sum(1 for char in s if char in vowels)"
+                    },
+                    {
+                        "language": "f184e7a9-4bbd-469f-901f-d56eb61c3e91",
+                        "value": "function countVowels(s) {\n    const vowels = new Set('aeiouAEIOU');\n    let count = 0;\n    for (let char of s) {\n        if (vowels.has(char)) {\n            count++;\n        }\n    }\n    return count;\n}"
+                    },
+                    {
+                        "language": "15ded783-2c6c-4e09-947e-3f25c654ff12",
+                        "value": "class Solution {\n    public int countVowels(String s) {\n        Set<Character> vowels = Set.of('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U');\n        int count = 0;\n        for (char ch : s.toCharArray()) {\n            if (vowels.contains(ch)) {\n                count++;\n            }\n        }\n        return count;\n    }\n}"
+                    }
+                ]
+            }
+        ],
+        "testcases": [
+            {
+                "is_sample": true,
+                "inputs": [
+                    {
+                        "name": "s",
+                        "type": 2,
+                        "value": "\"hello\""
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 2
+                    }
+                ]
+            },
+            {
+                "is_sample": true,
+                "inputs": [
+                    {
+                        "name": "s",
+                        "type": 2,
+                        "value": "\"world\""
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "is_sample": true,
+                "inputs": [
+                    {
+                        "name": "s",
+                        "type": 2,
+                        "value": "\"AEIOU\""
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 5
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Count Occurrences of a Character",
+        "difficulty": 0,
+        "description": "Given a string `s` and a character `char`, count the number of occurrences of `char` in `s`. The search should be case-insensitive.",
+        "tags": [
+            {
+                "name": "string"
+            },
+            {
+                "name": "counting"
+            }
+        ],
+        "constraints": "1 <= s.length <= 10^4, char is a single printable ASCII character.",
+        "solutions": [
+            {
+                "name": "Iterative Counting",
+                "intution": "To count the occurrences of a character, iterate through the string and count how many times the character appears.",
+                "algorithm": "Initialize a counter to 0. Iterate through each character in the string, converting both the string character and the target character to lower case. If they match, increment the counter. Return the counter value.",
+                "implementations": [
+                    {
+                        "language": "612451a8-0b9e-42ae-b1c6-6c8a8689b8d9",
+                        "value": "class Solution:\n    def countChar(self, s: str, char: str) -> int:\n        char = char.lower()\n        return sum(1 for c in s.lower() if c == char)"
+                    },
+                    {
+                        "language": "f184e7a9-4bbd-469f-901f-d56eb61c3e91",
+                        "value": "function countChar(s, char) {\n    char = char.toLowerCase();\n    let count = 0;\n    for (let c of s.toLowerCase()) {\n        if (c === char) {\n            count++;\n        }\n    }\n    return count;\n}"
+                    },
+                    {
+                        "language": "15ded783-2c6c-4e09-947e-3f25c654ff12",
+                        "value": "class Solution {\n    public int countChar(String s, char ch) {\n        ch = Character.toLowerCase(ch);\n        int count = 0;\n        for (char c : s.toLowerCase().toCharArray()) {\n            if (c == ch) {\n                count++;\n            }\n        }\n        return count;\n    }\n}"
+                    }
+                ]
+            }
+        ],
+        "testcases": [
+            {
+                "is_sample": true,
+                "inputs": [
+                    {
+                        "name": "s",
+                        "type": 2,
+                        "value": "\"programming\""
+                    },
+                    {
+                        "name": "char",
+                        "type": 2,
+                        "value": "\"g\""
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 2
+                    }
+                ]
+            },
+            {
+                "is_sample": true,
+                "inputs": [
+                    {
+                        "name": "s",
+                        "type": 2,
+                        "value": "\"Hello World!\""
+                    },
+                    {
+                        "name": "char",
+                        "type": 2,
+                        "value": "\"o\""
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 2
+                    }
+                ]
+            },
+            {
+                "is_sample": true,
+                "inputs": [
+                    {
+                        "name": "s",
+                        "type": 2,
+                        "value": "\"Mississippi\""
+                    },
+                    {
+                        "name": "char",
+                        "type": 2,
+                        "value": "\"s\""
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 4
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "s",
+                        "type": 2,
+                        "value": "\"Data Science\""
+                    },
+                    {
+                        "name": "char",
+                        "type": 2,
+                        "value": "\"a\""
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 2
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "s",
+                        "type": 2,
+                        "value": "\"Python Programming\""
+                    },
+                    {
+                        "name": "char",
+                        "type": 2,
+                        "value": "\"P\""
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 2
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "s",
+                        "type": 2,
+                        "value": "\"1234567890\""
+                    },
+                    {
+                        "name": "char",
+                        "type": 2,
+                        "value": "\"5\""
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "s",
+                        "type": 2,
+                        "value": "\"UpperCase and LowerCase\""
+                    },
+                    {
+                        "name": "char",
+                        "type": 2,
+                        "value": "\"c\""
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 2
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "s",
+                        "type": 2,
+                        "value": "\"abracadabra\""
+                    },
+                    {
+                        "name": "char",
+                        "type": 2,
+                        "value": "\"a\""
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 5
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "s",
+                        "type": 2,
+                        "value": "\"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\""
+                    },
+                    {
+                        "name": "char",
+                        "type": 2,
+                        "value": "\"A\""
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 2
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "s",
+                        "type": 2,
+                        "value": "\"The quick brown fox jumps over the lazy dog\""
+                    },
+                    {
+                        "name": "char",
+                        "type": 2,
+                        "value": "\"o\""
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 4
+                    }
+                ]
+            }
+        ]
+    }
+                        
+]
