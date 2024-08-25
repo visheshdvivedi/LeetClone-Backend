@@ -50,7 +50,6 @@ class Account(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     last_login = models.DateTimeField(null=True, blank=True)
     date_joined = models.DateTimeField(auto_now_add=True)
-
     solved_problems = models.ManyToManyField('problems.Problem', through="AccountSolvedProblems")
 
     USERNAME_FIELD = 'email'

@@ -9,12 +9,15 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from .models import Submission
-from .models import Problem, Language, SubmissionStatus, TestCase
-from .serializers import CreateProblemSerializer, ViewProblemSerializer, VoteSerializer, RunSerializer, LanguageSerializer, SubmissionSerializer, RetrieveProblemSerializer
+from .models import Problem, Language, SubmissionStatus, TestCase, Tag
+from .serializers import CreateProblemSerializer, ViewProblemSerializer, VoteSerializer, RunSerializer, LanguageSerializer, SubmissionSerializer, RetrieveProblemSerializer, TagSerializer, ListProblemSerializer
 
 from accounts.models import AccountSolvedProblems
 
 from django.conf import settings
+from django.db.models import Q
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from .judge import JudgeManager
 
 JUDGE_MANAGER = JudgeManager()
@@ -35,6 +38,8 @@ class ProblemViewSet(ViewSet):
             return Response({"id": problem.public_id, "message": "Problem created successfully"}, status=201)
         return Response(serializer.errors, status=HTTPStatus.BAD_REQUEST)
     
+    # cache response for 24 hours
+    @method_decorator(cache_page(60*60*24))
     def retrieve(self, request, pk=None):
         if not pk:
             return Response({"message": "Invalid problem ID"}, status=HTTPStatus.BAD_REQUEST)
@@ -48,9 +53,38 @@ class ProblemViewSet(ViewSet):
         data['testcases'] = serializer.get_testcases(problem.public_id)
         return Response(data)
     
+    # cache response for 24 hours
+    @method_decorator(cache_page(60*60*24))
     def list(self, request):
-        problems = Problem.objects.all()
-        serializer = ViewProblemSerializer(problems, many=True)
+
+        filters = request.GET
+        difficulty = filters.get("difficulty")
+        search = filters.get("search")
+        tags = filters.get("tags")
+
+        filter_obj = Q()
+
+        # process difficulty filters
+        if search:
+            filter_obj &= Q(name__icontains=search)
+        if difficulty:
+            filter_obj &= Q(difficulty=difficulty)
+        if tags:
+            if "," in tags:
+                for tag in tags.split(","):
+                    filter_obj |= Q(tags__name__contains=tag)
+            else:
+                filter_obj &=Q(tags__name__contains=tags)
+
+        print("Final query object:", filter_obj)
+        problems = Problem.objects.filter(filter_obj).all()
+        serializer = ListProblemSerializer(problems, many=True)
+        return Response(serializer.data)
+    
+    @action(detail=False, methods=[HTTPMethod.GET])
+    def list_all_tags(self, request):
+        tags = Tag.objects.all()
+        serializer = TagSerializer(tags, many=True)
         return Response(serializer.data)
     
     @action(detail=True, methods=[HTTPMethod.PUT])
@@ -215,7 +249,7 @@ class ProblemViewSet(ViewSet):
                 # check if answers are right or not
                 if status != None:
                     testcases = TestCase.objects.filter(problem=problem).all()
-                    status = JUDGE_MANAGER.get_submission_status(testcases, response['submissions'])
+                    status, failed_testcase_details = JUDGE_MANAGER.get_submission_status(testcases, response['submissions'])
 
                 avg_time = float(total_time / count)
                 avg_memory = float(total_memory / count)
@@ -231,17 +265,31 @@ class ProblemViewSet(ViewSet):
                     memory = avg_memory,
                     time_percent = 93.5,
                     memory_percent = 98.3,
-                    error_string = error_string
+                    error_string = error_string,
+                    reject_details = {} if status else failed_testcase_details
                 )
 
                 # if the solution is accepted, update the solved problems for the user
-                AccountSolvedProblems.objects.create(
-                    account = request.user,
-                    problem = problem
-                )
+                if status:
+
+                    # check if the same problem for the same account does not exist already
+                    existing_solved = AccountSolvedProblems.objects.filter(account=request.user, problem=problem).first()
+
+                    if not existing_solved:
+                        AccountSolvedProblems.objects.create(
+                            account = request.user,
+                            problem = problem
+                        )
 
                 serializer = SubmissionSerializer(submission)
-                return Response(serializer.data)
+                output = serializer.data
+
+                # add failed test case details in case if the 
+                # submission was rejected
+                if not status:
+                    output['details'] = failed_testcase_details
+
+                return Response(output)
 
         return Response(serializer.errors, status=400)
 

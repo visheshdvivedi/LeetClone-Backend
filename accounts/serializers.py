@@ -1,5 +1,6 @@
 from .models import Account
 from rest_framework import serializers
+from drf_extra_fields.fields import Base64ImageField
 
 class CreateAccountSerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,3 +26,6 @@ class RetrieveAccountSerializer(serializers.ModelSerializer):
 class GoogleAuthSerializer(serializers.Serializer):
     code = serializers.CharField(required=False)
     error = serializers.CharField(required=False)
+
+class UploadProfilePicSerializer(serializers.Serializer):
+    image = Base64ImageField(required=True)

@@ -22,15 +22,15 @@
                 "algorithm": "Iterate through the array, for each element, iterate through the rest of the array to find if any pair sums up to the target. Return the indices of the two numbers.",
                 "implementations": [
                     {
-                        "language": "612451a8-0b9e-42ae-b1c6-6c8a8689b8d9",
+                        "language": "fa646bc3-327a-4d34-b80f-1f88eabdcf38",
                         "value": "class Solution:\n    def twoSum(self, nums, target):\n        for i in range(len(nums)):\n            for j in range(i + 1, len(nums)):\n                if nums[i] + nums[j] == target:\n                    return [i, j]"
                     },
                     {
-                        "language": "f184e7a9-4bbd-469f-901f-d56eb61c3e91",
+                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
                         "value": "function twoSum(nums, target) {\n    for (let i = 0; i < nums.length; i++) {\n        for (let j = i + 1; j < nums.length; j++) {\n            if (nums[i] + nums[j] === target) {\n                return [i, j];\n            }\n        }\n    }\n}"
                     },
                     {
-                        "language": "15ded783-2c6c-4e09-947e-3f25c654ff12",
+                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
                         "value": "class Solution {\n    public int[] twoSum(int[] nums, int target) {\n        for (int i = 0; i < nums.length; i++) {\n            for (int j = i + 1; j < nums.length; j++) {\n                if (nums[i] + nums[j] == target) {\n                    return new int[]{i, j};\n                }\n            }\n        }\n        return new int[0];\n    }\n}"
                     }
                 ]
@@ -41,15 +41,15 @@
                 "algorithm": "Iterate through the array, for each element, calculate the difference between the target and the current element. Check if this difference exists in the hashmap. If it does, return the indices. If not, store the current element in the hashmap.",
                 "implementations": [
                     {
-                        "language": "612451a8-0b9e-42ae-b1c6-6c8a8689b8d9",
+                        "language": "fa646bc3-327a-4d34-b80f-1f88eabdcf38",
                         "value": "class Solution:\n    def twoSum(self, nums, target):\n        hashmap = {}\n        for i, num in enumerate(nums):\n            diff = target - num\n            if diff in hashmap:\n                return [hashmap[diff], i]\n            hashmap[num] = i"
                     },
                     {
-                        "language": "f184e7a9-4bbd-469f-901f-d56eb61c3e91",
+                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
                         "value": "function twoSum(nums, target) {\n    const hashmap = {};\n    for (let i = 0; i < nums.length; i++) {\n        const diff = target - nums[i];\n        if (hashmap[diff] !== undefined) {\n            return [hashmap[diff], i];\n        }\n        hashmap[nums[i]] = i;\n    }\n}"
                     },
                     {
-                        "language": "15ded783-2c6c-4e09-947e-3f25c654ff12",
+                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
                         "value": "class Solution {\n    public int[] twoSum(int[] nums, int target) {\n        Map<Integer, Integer> hashmap = new HashMap<>();\n        for (int i = 0; i < nums.length; i++) {\n            int diff = target - nums[i];\n            if (hashmap.containsKey(diff)) {\n                return new int[]{hashmap.get(diff), i};\n            }\n            hashmap.put(nums[i], i);\n        }\n        return new int[0];\n    }\n}"
                     }
                 ]
@@ -172,7 +172,7 @@
                     {
                         "name": "output",
                         "type": 3,
-                        "value": "[1, 4]"
+                        "value": "[1, 3]"
                     }
                 ]
             },
@@ -278,15 +278,15 @@
                 "algorithm": "Initialize two pointers, one at the start and the other at the end of the string. Move both pointers towards the center, comparing the characters at each step. If any mismatch is found, return false. If the pointers cross each other without finding any mismatch, return true.",
                 "implementations": [
                     {
-                        "language": "612451a8-0b9e-42ae-b1c6-6c8a8689b8d9",
+                        "language": "fa646bc3-327a-4d34-b80f-1f88eabdcf38",
                         "value": "class Solution:\n    def isPalindrome(self, s: str) -> bool:\n        left, right = 0, len(s) - 1\n        while left < right:\n            if s[left] != s[right]:\n                return False\n            left += 1\n            right -= 1\n        return True"
                     },
                     {
-                        "language": "f184e7a9-4bbd-469f-901f-d56eb61c3e91",
+                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
                         "value": "function isPalindrome(s) {\n    let left = 0;\n    let right = s.length - 1;\n    while (left < right) {\n        if (s[left] !== s[right]) {\n            return false;\n        }\n        left++;\n        right--;\n    }\n    return true;\n}"
                     },
                     {
-                        "language": "15ded783-2c6c-4e09-947e-3f25c654ff12",
+                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
                         "value": "class Solution {\n    public boolean isPalindrome(String s) {\n        int left = 0, right = s.length() - 1;\n        while (left < right) {\n            if (s.charAt(left) != s.charAt(right)) {\n                return false;\n            }\n            left++;\n            right--;\n        }\n        return true;\n    }\n}"
                     }
                 ]
@@ -465,15 +465,15 @@
                 "algorithm": "Initialize a sum variable to 0. While the number `n` is greater than 0, extract the last digit using modulus operation (`n % 10`), add this digit to the sum, and remove the last digit from `n` using integer division by 10 (`n // 10`). Continue until `n` becomes 0. Return the sum.",
                 "implementations": [
                     {
-                        "language": "612451a8-0b9e-42ae-b1c6-6c8a8689b8d9",
+                        "language": "fa646bc3-327a-4d34-b80f-1f88eabdcf38",
                         "value": "class Solution:\n    def sumOfDigits(self, n: int) -> int:\n        total = 0\n        while n > 0:\n            total += n % 10\n            n //= 10\n        return total"
                     },
                     {
-                        "language": "f184e7a9-4bbd-469f-901f-d56eb61c3e91",
+                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
                         "value": "function sumOfDigits(n) {\n    let total = 0;\n    while (n > 0) {\n        total += n % 10;\n        n = Math.floor(n / 10);\n    }\n    return total;\n}"
                     },
                     {
-                        "language": "15ded783-2c6c-4e09-947e-3f25c654ff12",
+                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
                         "value": "class Solution {\n    public int sumOfDigits(int n) {\n        int total = 0;\n        while (n > 0) {\n            total += n % 10;\n            n /= 10;\n        }\n        return total;\n    }\n}"
                     }
                 ]
@@ -637,15 +637,15 @@
                 "algorithm": "Compare the two numbers using an if-else statement. Return the number that is greater.",
                 "implementations": [
                     {
-                        "language": "612451a8-0b9e-42ae-b1c6-6c8a8689b8d9",
+                        "language": "fa646bc3-327a-4d34-b80f-1f88eabdcf38",
                         "value": "class Solution:\n    def maxOfTwoNumbers(self, a: int, b: int) -> int:\n        return a if a > b else b"
                     },
                     {
-                        "language": "f184e7a9-4bbd-469f-901f-d56eb61c3e91",
+                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
                         "value": "function maxOfTwoNumbers(a, b) {\n    return a > b ? a : b;\n}"
                     },
                     {
-                        "language": "15ded783-2c6c-4e09-947e-3f25c654ff12",
+                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
                         "value": "class Solution {\n    public int maxOfTwoNumbers(int a, int b) {\n        return a > b ? a : b;\n    }\n}"
                     }
                 ]
@@ -874,15 +874,15 @@
                 "algorithm": "Initialize a variable to store the sum of elements. Iterate through the array and add each element to the sum. Divide the total sum by the number of elements to get the average.",
                 "implementations": [
                     {
-                        "language": "612451a8-0b9e-42ae-b1c6-6c8a8689b8d9",
+                        "language": "fa646bc3-327a-4d34-b80f-1f88eabdcf38",
                         "value": "class Solution:\n    def findAverage(self, nums: List[int]) -> float:\n        return sum(nums) / len(nums)"
                     },
                     {
-                        "language": "f184e7a9-4bbd-469f-901f-d56eb61c3e91",
+                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
                         "value": "function findAverage(nums) {\n    let sum = 0;\n    for (let num of nums) {\n        sum += num;\n    }\n    return sum / nums.length;\n}"
                     },
                     {
-                        "language": "15ded783-2c6c-4e09-947e-3f25c654ff12",
+                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
                         "value": "class Solution {\n    public double findAverage(int[] nums) {\n        int sum = 0;\n        for (int num : nums) {\n            sum += num;\n        }\n        return (double) sum / nums.length;\n    }\n}"
                     }
                 ]
@@ -956,15 +956,15 @@
                 "algorithm": "Initialize a counter to 0. Iterate through each character in the string. If the character is a vowel, increment the counter. Return the counter value.",
                 "implementations": [
                     {
-                        "language": "612451a8-0b9e-42ae-b1c6-6c8a8689b8d9",
+                        "language": "fa646bc3-327a-4d34-b80f-1f88eabdcf38",
                         "value": "class Solution:\n    def countVowels(self, s: str) -> int:\n        vowels = set('aeiouAEIOU')\n        return sum(1 for char in s if char in vowels)"
                     },
                     {
-                        "language": "f184e7a9-4bbd-469f-901f-d56eb61c3e91",
+                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
                         "value": "function countVowels(s) {\n    const vowels = new Set('aeiouAEIOU');\n    let count = 0;\n    for (let char of s) {\n        if (vowels.has(char)) {\n            count++;\n        }\n    }\n    return count;\n}"
                     },
                     {
-                        "language": "15ded783-2c6c-4e09-947e-3f25c654ff12",
+                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
                         "value": "class Solution {\n    public int countVowels(String s) {\n        Set<Character> vowels = Set.of('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U');\n        int count = 0;\n        for (char ch : s.toCharArray()) {\n            if (vowels.contains(ch)) {\n                count++;\n            }\n        }\n        return count;\n    }\n}"
                     }
                 ]
@@ -1038,15 +1038,15 @@
                 "algorithm": "Initialize a counter to 0. Iterate through each character in the string, converting both the string character and the target character to lower case. If they match, increment the counter. Return the counter value.",
                 "implementations": [
                     {
-                        "language": "612451a8-0b9e-42ae-b1c6-6c8a8689b8d9",
+                        "language": "fa646bc3-327a-4d34-b80f-1f88eabdcf38",
                         "value": "class Solution:\n    def countChar(self, s: str, char: str) -> int:\n        char = char.lower()\n        return sum(1 for c in s.lower() if c == char)"
                     },
                     {
-                        "language": "f184e7a9-4bbd-469f-901f-d56eb61c3e91",
+                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
                         "value": "function countChar(s, char) {\n    char = char.toLowerCase();\n    let count = 0;\n    for (let c of s.toLowerCase()) {\n        if (c === char) {\n            count++;\n        }\n    }\n    return count;\n}"
                     },
                     {
-                        "language": "15ded783-2c6c-4e09-947e-3f25c654ff12",
+                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
                         "value": "class Solution {\n    public int countChar(String s, char ch) {\n        ch = Character.toLowerCase(ch);\n        int count = 0;\n        for (char c : s.toLowerCase().toCharArray()) {\n            if (c == ch) {\n                count++;\n            }\n        }\n        return count;\n    }\n}"
                     }
                 ]
@@ -1254,6 +1254,755 @@
                 ]
             }
         ]
-    }
-                        
+    },
+    {
+        "name": "Find Longest Substring Without Repeating Characters",
+        "difficulty": 2,
+        "description": "Given a string `s`, find the length of the longest substring without repeating characters.",
+        "tags": [
+            {
+                "name": "string"
+            },
+            {
+                "name": "sliding window"
+            },
+            {
+                "name": "hash table"
+            }
+        ],
+        "constraints": "1 <= s.length <= 10^5, s consists of English letters, digits, symbols, and spaces.",
+        "solutions": [
+            {
+                "name": "Sliding Window",
+                "intution": "Use a sliding window approach to expand and contract the window to maintain a substring with unique characters. Use a hash set to track the characters in the current window.",
+                "algorithm": "Initialize two pointers `start` and `end` to mark the window and a hash set to track unique characters. Move `end` to expand the window until a duplicate character is found. Then move `start` to remove characters from the window until the duplicate character is removed. Keep track of the maximum window size.",
+                "implementations": [
+                    {
+                        "language": "fa646bc3-327a-4d34-b80f-1f88eabdcf38",
+                        "value": "class Solution:\n    def lengthOfLongestSubstring(self, s: str) -> int:\n        char_set = set()\n        left = 0\n        max_length = 0\n\n        for right in range(len(s)):\n            while s[right] in char_set:\n                char_set.remove(s[left])\n                left += 1\n            char_set.add(s[right])\n            max_length = max(max_length, right - left + 1)\n\n        return max_length"
+                    },
+                    {
+                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
+                        "value": "function lengthOfLongestSubstring(s) {\n    let charSet = new Set();\n    let left = 0;\n    let maxLength = 0;\n\n    for (let right = 0; right < s.length; right++) {\n        while (charSet.has(s[right])) {\n            charSet.delete(s[left]);\n            left++;\n        }\n        charSet.add(s[right]);\n        maxLength = Math.max(maxLength, right - left + 1);\n    }\n\n    return maxLength;\n}"
+                    },
+                    {
+                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
+                        "value": "import java.util.HashSet;\n\nclass Solution {\n    public int lengthOfLongestSubstring(String s) {\n        HashSet<Character> charSet = new HashSet<>();\n        int left = 0, maxLength = 0;\n\n        for (int right = 0; right < s.length(); right++) {\n            while (charSet.contains(s.charAt(right))) {\n                charSet.remove(s.charAt(left));\n                left++;\n            }\n            charSet.add(s.charAt(right));\n            maxLength = Math.max(maxLength, right - left + 1);\n        }\n\n        return maxLength;\n    }\n}"
+                    }
+                ]
+            }
+        ],
+        "testcases": [
+            {
+                "is_sample": true,
+                "inputs": [
+                    {
+                        "name": "s",
+                        "type": 2,
+                        "value": "\"abcabcbb\""
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 3
+                    }
+                ]
+            },
+            {
+                "is_sample": true,
+                "inputs": [
+                    {
+                        "name": "s",
+                        "type": 2,
+                        "value": "\"bbbbb\""
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "is_sample": true,
+                "inputs": [
+                    {
+                        "name": "s",
+                        "type": 2,
+                        "value": "\"pwwkew\""
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 3
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "s",
+                        "type": 2,
+                        "value": "\"\""
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 0
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "s",
+                        "type": 2,
+                        "value": "\"abcdefg\""
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 7
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "s",
+                        "type": 2,
+                        "value": "\"dvdf\""
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 3
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "s",
+                        "type": 2,
+                        "value": "\"anviaj\""
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 5
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "s",
+                        "type": 2,
+                        "value": "\"tmmzuxt\""
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 5
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "s",
+                        "type": 2,
+                        "value": "\"abacacbb\""
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 3
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "s",
+                        "type": 2,
+                        "value": "\"au\""
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 2
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Subarray Sum Equals K",
+        "difficulty": 2,
+        "description": "Given an array of integers `nums` and an integer `k`, return the total number of continuous subarrays whose sum equals to `k`.",
+        "tags": [
+            {
+                "name": "array"
+            },
+            {
+                "name": "hash table"
+            },
+            {
+                "name": "prefix sum"
+            }
+        ],
+        "constraints": "-1000 <= nums[i] <= 1000, 1 <= nums.length <= 2 * 10^4, -10^7 <= k <= 10^7",
+        "solutions": [
+            {
+                "name": "Prefix Sum with Hash Map",
+                "intution": "Use a prefix sum and a hash map to keep track of the number of times a particular sum occurs. By finding the difference between the current prefix sum and `k`, we can determine if there exists a subarray that sums to `k`.",
+                "algorithm": "Initialize a prefix sum and a hash map with a count of 0 prefix sum. Iterate through the array, update the prefix sum, and check if the difference between the current prefix sum and `k` is in the hash map. If it is, increment the count. Finally, update the hash map with the current prefix sum.",
+                "implementations": [
+                    {
+                        "language": "fa646bc3-327a-4d34-b80f-1f88eabdcf38",
+                        "value": "class Solution:\n    def subarraySum(self, nums: List[int], k: int) -> int:\n        prefix_sum = 0\n        count = 0\n        prefix_sum_count = {0: 1}\n\n        for num in nums:\n            prefix_sum += num\n            if prefix_sum - k in prefix_sum_count:\n                count += prefix_sum_count[prefix_sum - k]\n            if prefix_sum in prefix_sum_count:\n                prefix_sum_count[prefix_sum] += 1\n            else:\n                prefix_sum_count[prefix_sum] = 1\n\n        return count"
+                    },
+                    {
+                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
+                        "value": "function subarraySum(nums, k) {\n    let prefixSum = 0;\n    let count = 0;\n    let prefixSumCount = {0: 1};\n\n    for (let num of nums) {\n        prefixSum += num;\n        if (prefixSumCount[prefixSum - k] !== undefined) {\n            count += prefixSumCount[prefixSum - k];\n        }\n        if (prefixSumCount[prefixSum] !== undefined) {\n            prefixSumCount[prefixSum] += 1;\n        } else {\n            prefixSumCount[prefixSum] = 1;\n        }\n    }\n\n    return count;\n}"
+                    },
+                    {
+                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
+                        "value": "import java.util.HashMap;\n\nclass Solution {\n    public int subarraySum(int[] nums, int k) {\n        int prefixSum = 0, count = 0;\n        HashMap<Integer, Integer> prefixSumCount = new HashMap<>();\n        prefixSumCount.put(0, 1);\n\n        for (int num : nums) {\n            prefixSum += num;\n            if (prefixSumCount.containsKey(prefixSum - k)) {\n                count += prefixSumCount.get(prefixSum - k);\n            }\n            prefixSumCount.put(prefixSum, prefixSumCount.getOrDefault(prefixSum, 0) + 1);\n        }\n\n        return count;\n    }\n}"
+                    }
+                ]
+            }
+        ],
+        "testcases": [
+            {
+                "is_sample": true,
+                "inputs": [
+                    {
+                        "name": "nums",
+                        "type": 4,
+                        "value": "[1,1,1]"
+                    },
+                    {
+                        "name": "k",
+                        "type": 1,
+                        "value": 2
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 2
+                    }
+                ]
+            },
+            {
+                "is_sample": true,
+                "inputs": [
+                    {
+                        "name": "nums",
+                        "type": 4,
+                        "value": "[1,2,3]"
+                    },
+                    {
+                        "name": "k",
+                        "type": 1,
+                        "value": 3
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 2
+                    }
+                ]
+            },
+            {
+                "is_sample": true,
+                "inputs": [
+                    {
+                        "name": "nums",
+                        "type": 4,
+                        "value": "[-1,-1,1]"
+                    },
+                    {
+                        "name": "k",
+                        "type": 1,
+                        "value": 0
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "nums",
+                        "type": 4,
+                        "value": "[1,2,1,2,1]"
+                    },
+                    {
+                        "name": "k",
+                        "type": 1,
+                        "value": 3
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 4
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "nums",
+                        "type": 4,
+                        "value": "[3,4,7,2,-3,1,4,2]"
+                    },
+                    {
+                        "name": "k",
+                        "type": 1,
+                        "value": 7
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 4
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "nums",
+                        "type": 4,
+                        "value": "[0,0,0,0,0,0,0,0,0,0]"
+                    },
+                    {
+                        "name": "k",
+                        "type": 1,
+                        "value": 0
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 55
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "nums",
+                        "type": 4,
+                        "value": "[1,-1,0]"
+                    },
+                    {
+                        "name": "k",
+                        "type": 1,
+                        "value": 0
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 3
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "nums",
+                        "type": 4,
+                        "value": "[100,-100,100,-100]"
+                    },
+                    {
+                        "name": "k",
+                        "type": 1,
+                        "value": 0
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 4
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "nums",
+                        "type": 4,
+                        "value": "[1]"
+                    },
+                    {
+                        "name": "k",
+                        "type": 1,
+                        "value": 0
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 0
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "nums",
+                        "type": 4,
+                        "value": "[1,-1,1,1]"
+                    },
+                    {
+                        "name": "k",
+                        "type": 1,
+                        "value": 1
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 5
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Median of Two Sorted Arrays",
+        "difficulty": 3,
+        "description": "Given two sorted arrays `nums1` and `nums2` of size `m` and `n` respectively, return the median of the two sorted arrays.",
+        "tags": [
+            {
+                "name": "array"
+            },
+            {
+                "name": "binary search"
+            },
+            {
+                "name": "divide and conquer"
+            }
+        ],
+        "constraints": "0 <= m, n <= 10^6, -10^6 <= nums1[i], nums2[i] <= 10^6. The overall run time complexity should be O(log(min(m,n))).",
+        "solutions": [
+            {
+                "name": "Binary Search",
+                "intution": "To find the median efficiently, use binary search to partition the arrays such that the left half contains the smaller elements, and the right half contains the larger elements. This can be done by comparing the elements around the middle of the arrays.",
+                "algorithm": "Use binary search on the smaller array. Partition the arrays such that the left part contains half of the combined total elements. Check if the maximum element on the left is less than the minimum element on the right for both arrays. If true, the median is found; otherwise, adjust the partitions.",
+                "implementations": [
+                    {
+                        "language": "fa646bc3-327a-4d34-b80f-1f88eabdcf38",
+                        "value": "class Solution:\n    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:\n        if len(nums1) > len(nums2):\n            nums1, nums2 = nums2, nums1\n        x, y = len(nums1), len(nums2)\n        low, high = 0, x\n        while low <= high:\n            partitionX = (low + high) // 2\n            partitionY = (x + y + 1) // 2 - partitionX\n            maxX = float('-inf') if partitionX == 0 else nums1[partitionX - 1]\n            maxY = float('-inf') if partitionY == 0 else nums2[partitionY - 1]\n            minX = float('inf') if partitionX == x else nums1[partitionX]\n            minY = float('inf') if partitionY == y else nums2[partitionY]\n            if maxX <= minY and maxY <= minX:\n                if (x + y) % 2 == 0:\n                    return (max(maxX, maxY) + min(minX, minY)) / 2\n                else:\n                    return max(maxX, maxY)\n            elif maxX > minY:\n                high = partitionX - 1\n            else:\n                low = partitionX + 1"
+                    },
+                    {
+                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
+                        "value": "function findMedianSortedArrays(nums1, nums2) {\n    if (nums1.length > nums2.length) [nums1, nums2] = [nums2, nums1];\n    let x = nums1.length, y = nums2.length;\n    let low = 0, high = x;\n    while (low <= high) {\n        let partitionX = (low + high) >> 1;\n        let partitionY = ((x + y + 1) >> 1) - partitionX;\n        let maxX = partitionX == 0 ? -Infinity : nums1[partitionX - 1];\n        let maxY = partitionY == 0 ? -Infinity : nums2[partitionY - 1];\n        let minX = partitionX == x ? Infinity : nums1[partitionX];\n        let minY = partitionY == y ? Infinity : nums2[partitionY];\n        if (maxX <= minY && maxY <= minX) {\n            if ((x + y) % 2 == 0)\n                return (Math.max(maxX, maxY) + Math.min(minX, minY)) / 2;\n            else\n                return Math.max(maxX, maxY);\n        } else if (maxX > minY) {\n            high = partitionX - 1;\n        } else {\n            low = partitionX + 1;\n        }\n    }\n}"
+                    },
+                    {
+                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
+                        "value": "class Solution {\n    public double findMedianSortedArrays(int[] nums1, int[] nums2) {\n        if (nums1.length > nums2.length) return findMedianSortedArrays(nums2, nums1);\n        int x = nums1.length, y = nums2.length;\n        int low = 0, high = x;\n        while (low <= high) {\n            int partitionX = (low + high) / 2;\n            int partitionY = (x + y + 1) / 2 - partitionX;\n            int maxX = (partitionX == 0) ? Integer.MIN_VALUE : nums1[partitionX - 1];\n            int maxY = (partitionY == 0) ? Integer.MIN_VALUE : nums2[partitionY - 1];\n            int minX = (partitionX == x) ? Integer.MAX_VALUE : nums1[partitionX];\n            int minY = (partitionY == y) ? Integer.MAX_VALUE : nums2[partitionY];\n            if (maxX <= minY && maxY <= minX) {\n                if ((x + y) % 2 == 0)\n                    return ((double)Math.max(maxX, maxY) + Math.min(minX, minY)) / 2;\n                else\n                    return (double)Math.max(maxX, maxY);\n            } else if (maxX > minY) {\n                high = partitionX - 1;\n            } else {\n                low = partitionX + 1;\n            }\n        }\n        throw new IllegalArgumentException();\n    }\n}"
+                    }
+                ]
+            }
+        ],
+        "testcases": [
+            {
+                "is_sample": true,
+                "inputs": [
+                    {
+                        "name": "nums1",
+                        "type": 4,
+                        "value": "[1, 3]"
+                    },
+                    {
+                        "name": "nums2",
+                        "type": 4,
+                        "value": "[2]"
+                    },
+                    {
+                        "name": "output",
+                        "type": 3,
+                        "value": 2.0
+                    }
+                ]
+            },
+            {
+                "is_sample": true,
+                "inputs": [
+                    {
+                        "name": "nums1",
+                        "type": 4,
+                        "value": "[1, 2]"
+                    },
+                    {
+                        "name": "nums2",
+                        "type": 4,
+                        "value": "[3, 4]"
+                    },
+                    {
+                        "name": "output",
+                        "type": 3,
+                        "value": 2.5
+                    }
+                ]
+            },
+            {
+                "is_sample": true,
+                "inputs": [
+                    {
+                        "name": "nums1",
+                        "type": 4,
+                        "value": "[]"
+                    },
+                    {
+                        "name": "nums2",
+                        "type": 4,
+                        "value": "[1]"
+                    },
+                    {
+                        "name": "output",
+                        "type": 3,
+                        "value": 1.0
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "nums1",
+                        "type": 4,
+                        "value": "[0, 0]"
+                    },
+                    {
+                        "name": "nums2",
+                        "type": 4,
+                        "value": "[0, 0]"
+                    },
+                    {
+                        "name": "output",
+                        "type": 3,
+                        "value": 0.0
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "nums1",
+                        "type": 4,
+                        "value": "[1, 2, 3, 4, 5]"
+                    },
+                    {
+                        "name": "nums2",
+                        "type": 4,
+                        "value": "[6, 7, 8, 9, 10]"
+                    },
+                    {
+                        "name": "output",
+                        "type": 3,
+                        "value": 5.5
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "nums1",
+                        "type": 4,
+                        "value": "[1, 3, 8]"
+                    },
+                    {
+                        "name": "nums2",
+                        "type": 4,
+                        "value": "[7, 9, 10, 11]"
+                    },
+                    {
+                        "name": "output",
+                        "type": 3,
+                        "value": 8.0
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Longest Consecutive Sequence",
+        "difficulty": 3,
+        "description": "Given an unsorted array of integers `nums`, find the length of the longest consecutive elements sequence. You must write an algorithm that runs in O(n) time.",
+        "tags": [
+            {
+                "name": "array"
+            },
+            {
+                "name": "hash table"
+            },
+            {
+                "name": "union find"
+            }
+        ],
+        "constraints": "0 <= nums.length <= 10^6, -10^9 <= nums[i] <= 10^9.",
+        "solutions": [
+            {
+                "name": "HashSet",
+                "intution": "Use a HashSet to achieve O(1) look-up times. For each number, if it is the start of a sequence (i.e., number - 1 is not in the set), then iterate through the sequence while the next consecutive number is in the set.",
+                "algorithm": "Initialize a HashSet with all numbers. For each number, check if it's the start of a sequence. If so, count the length of that sequence and update the maximum length found.",
+                "implementations": [
+                    {
+                        "language": "fa646bc3-327a-4d34-b80f-1f88eabdcf38",
+                        "value": "class Solution:\n    def longestConsecutive(self, nums: List[int]) -> int:\n        num_set = set(nums)\n        longest_streak = 0\n        for num in num_set:\n            if num - 1 not in num_set:\n                current_num = num\n                current_streak = 1\n                while current_num + 1 in num_set:\n                    current_num += 1\n                    current_streak += 1\n                longest_streak = max(longest_streak, current_streak)\n        return longest_streak"
+                    },
+                    {
+                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
+                        "value": "function longestConsecutive(nums) {\n    const numSet = new Set(nums);\n    let longestStreak = 0;\n    for (let num of numSet) {\n        if (!numSet.has(num - 1)) {\n            let currentNum = num;\n            let currentStreak = 1;\n            while (numSet.has(currentNum + 1)) {\n                currentNum += 1;\n                currentStreak += 1;\n            }\n            longestStreak = Math.max(longestStreak, currentStreak);\n        }\n    }\n    return longestStreak;\n}"
+                    },
+                    {
+                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
+                        "value": "import java.util.HashSet;\nimport java.util.Set;\n\nclass Solution {\n    public int longestConsecutive(int[] nums) {\n        Set<Integer> numSet = new HashSet<>();\n        for (int num : nums) {\n            numSet.add(num);\n        }\n        int longestStreak = 0;\n        for (int num : numSet) {\n            if (!numSet.contains(num - 1)) {\n                int currentNum = num;\n                int currentStreak = 1;\n                while (numSet.contains(currentNum + 1)) {\n                    currentNum += 1;\n                    currentStreak += 1;\n                }\n                longestStreak = Math.max(longestStreak, currentStreak);\n            }\n        }\n        return longestStreak;\n    }\n}"
+                    }
+                ]
+            }
+        ],
+        "testcases": [
+            {
+                "is_sample": true,
+                "inputs": [
+                    {
+                        "name": "nums",
+                        "type": 4,
+                        "value": "[100, 4, 200, 1, 3, 2]"
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 4
+                    }
+                ]
+            },
+            {
+                "is_sample": true,
+                "inputs": [
+                    {
+                        "name": "nums",
+                        "type": 4,
+                        "value": "[0, -1]"
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 2
+                    }
+                ]
+            },
+            {
+                "is_sample": true,
+                "inputs": [
+                    {
+                        "name": "nums",
+                        "type": 4,
+                        "value": "[1, 2, 0, 1]"
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 3
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "nums",
+                        "type": 4,
+                        "value": "[10, 5, 12, 3, 55, 30, 31, 6, 14, 13]"
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 3
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "nums",
+                        "type": 4,
+                        "value": "[9, 1, 4, 7, 3, -1, 0, 5, 8, -1, 6]"
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 7
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "nums",
+                        "type": 4,
+                        "value": "[]"
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 0
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "nums",
+                        "type": 4,
+                        "value": "[1]"
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "is_sample": false,
+                "inputs": [
+                    {
+                        "name": "nums",
+                        "type": 4,
+                        "value": "[1, 3, 5, 7, 9]"
+                    },
+                    {
+                        "name": "output",
+                        "type": 1,
+                        "value": 1
+                    }
+                ]
+            }
+        ]
+    }        
 ]

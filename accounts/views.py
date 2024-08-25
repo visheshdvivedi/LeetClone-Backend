@@ -2,7 +2,7 @@ from datetime import datetime
 
 from .models import Account, AccountSolvedProblems
 from .services import get_user_data
-from .serializers import CreateAccountSerializer, RetrieveAccountSerializer, ListAccountSerializer, GoogleAuthSerializer
+from .serializers import CreateAccountSerializer, RetrieveAccountSerializer, ListAccountSerializer, GoogleAuthSerializer, UploadProfilePicSerializer
 
 from problems.models import Submission, DifficultyChoices, Problem
 from problems.serializers import SubmissionSerializer
@@ -21,6 +21,7 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from .permissions import AccountPermissions
+from .blob import upload_file, download_blob, get_all_blobs
 
 class AccountViewSet(ViewSet):
     authentication_classes = [JWTAuthentication]
@@ -103,7 +104,7 @@ class AccountViewSet(ViewSet):
         for entry in entries:
             output['solved']['all'] += 1
 
-            if problem.difficulty == DifficultyChoices.SCHOOL:
+            if entry.problem.difficulty == DifficultyChoices.SCHOOL:
                 output['solved']['school'] += 1
             elif entry.problem.difficulty == DifficultyChoices.EASY:
                 output['solved']['easy'] += 1
@@ -113,6 +114,26 @@ class AccountViewSet(ViewSet):
                 output['solved']['hard'] += 1
 
         return Response(output)
+    
+    @action(detail=False, methods=['POST'], url_path="upload_profile_picture", authentication_classes=[JWTAuthentication])
+    def upload_profile_picture(self, request):
+        serializer = UploadProfilePicSerializer(data=request.data)
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=400)
+        image = serializer.validated_data.get('image')
+
+        with open(f"temp/{image.name}", "wb") as file:
+            file.write(image.read())
+
+        url = upload_file(request.user.username, f"temp/{image.name}")
+        return Response({"message": "File saved successfully", "url": url}, status=200)
+    
+    @action(detail=False, methods=['GET'], url_path="get_profile_picture", authentication_classes=[JWTAuthentication])
+    def get_profile_picture(self, request):
+        blob_name = request.user.username
+        b64_image = download_blob(blob_name, f"temp/{blob_name}")
+        b64_image = str(b64_image).replace("b'", "").replace("'", "")
+        return Response({"image": "data:image/jpeg;base64," + b64_image}, status=200)
 
 class LogoutView(APIView):
     authentication_classes = [IsAuthenticated]
@@ -143,7 +164,12 @@ class GoogleLoginView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
         data = serializer.validated_data
-        user_data = get_user_data(data)
+
+        try:
+            user_data = get_user_data(data)
+        except Exception as ex:
+            print(ex)
+            return Response({ "message": "Failed to get user details from Google" }, status=400)
 
         if isinstance(user_data, str):
             return redirect(user_data)
@@ -151,4 +177,6 @@ class GoogleLoginView(APIView):
         account = Account.objects.get(email=user_data['email'])
         refresh = RefreshToken.for_user(account)
 
-        return redirect(f"{redirect_url}?access={str(refresh.access_token)}&refresh={str(refresh)}")
+        new_redirect = f"{redirect_url}?access={str(refresh.access_token)}&refresh={str(refresh)}"
+        print("New Redirect:", new_redirect)
+        return redirect(new_redirect)

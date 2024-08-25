@@ -107,8 +107,6 @@ class JudgeManager:
     @staticmethod
     def create_default_code_by_language(name: str, language: str, inputs: List[dict]) -> str:
 
-        print(name, language, inputs)
-
         if language == "python":
             func_name = name.replace(" ", "")
             func_name = func_name[0].lower() + func_name[1:]
@@ -338,10 +336,17 @@ class JudgeManager:
             bool: True if all answers are correct else False
         """
         for index, testcase in enumerate(testcases):
-            original_output = find(lambda x: x.name == "output", testcase.inputs.all()).value
-            expected_output = submissions[index]['stdout']
+            inputs = testcase.inputs.all()
+            expected_output = find(lambda x: x.name == "output", inputs).value
+            program_output = submissions[index]['stdout']
 
-            if original_output != expected_output:
-                return False
+            failed_testcase_details = {
+                "inputs": [{ "name": input.name, "value": input.value } for input in inputs],
+                "expected_output": expected_output,
+                "original_output": program_output
+            }
+
+            if program_output != expected_output:
+                return False, failed_testcase_details
             
-        return True
+        return True, {}

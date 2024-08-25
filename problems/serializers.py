@@ -276,6 +276,17 @@ class CreateProblemSerializer(serializers.ModelSerializer):
 
         return problem
     
+class ListProblemSerializer(serializers.ModelSerializer):
+    tags = TagNameSerializer(many=True)
+
+    class Meta:
+        model = Problem
+        fields = ['public_id', 'name', 'likes', 'dislikes', 'difficulty', 'tags']
+        extra_kwargs = {
+            "likes": { "read_only": True },
+            "dislikes": { "read_only": True }
+        }
+    
 class ViewProblemSerializer(serializers.ModelSerializer):
     testcases = TestCaseSerializer(many=True)
     defaultCode = CodeSerializer(many=True)
@@ -345,5 +356,11 @@ class SubmissionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Submission
-        fields = ["public_id", "problem", "status", "code", "language", "time", "memory", "date", "time_percent", "memory_percent", "error_string"]
+        fields = ["public_id", "problem", "status", "code", "language", "time", "memory", "date", "time_percent", "memory_percent", "error_string", "reject_details"]
         read_only_fields = ["__all__"]
+
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
+        fields = ['public_id', 'name']
+        read_only_field = ['__all__']

@@ -80,6 +80,9 @@ class ValueField(models.Model):
     value = models.TextField(null=True)
     testcase = models.ForeignKey("TestCase", related_name="inputs", to_field="public_id", on_delete=models.CASCADE, null=True)
 
+    def __str__(self):
+        return f"{self.testcase.problem}_{self.name}_{self.value}"
+
 class Language(models.Model):
     public_id = models.UUIDField(default=generate_default_uuid, unique=True)
     name = models.CharField(max_length=20)
@@ -133,3 +136,4 @@ class Submission(models.Model):
     time_percent = models.FloatField()
     memory_percent = models.FloatField()
     error_string = models.TextField(null=True)
+    reject_details = models.JSONField(null=True, blank=True)
