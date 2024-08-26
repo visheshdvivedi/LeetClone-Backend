@@ -29,3 +29,8 @@ class GoogleAuthSerializer(serializers.Serializer):
 
 class UploadProfilePicSerializer(serializers.Serializer):
     image = Base64ImageField(required=True)
+
+class GetProfilePictureSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Account
+        fields = ['profile_picture']

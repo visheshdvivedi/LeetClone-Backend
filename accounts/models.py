@@ -1,3 +1,4 @@
+import os
 from uuid import uuid4
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
@@ -5,6 +6,14 @@ from django.utils import timezone
 
 def generate_uuid():
     return str(uuid4())
+
+def path_and_rename(instance, filename):
+    upload_to = 'static/profile_pictures/'
+    if '.' not in filename:
+        raise Exception("Invalid file without extension")
+    ext = filename.split('.')[-1]
+    filename = f"{instance.public_id}.{ext}"
+    return os.path.join(upload_to, filename)
 
 class LoginType(models.IntegerChoices):
     EMAIL = 0
@@ -62,6 +71,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
     solved_problems = models.ManyToManyField('problems.Problem', through="AccountSolvedProblems")
 
     max_streak = models.IntegerField(default=0)
+    profile_picture = models.ImageField(upload_to=path_and_rename, null=True, blank=True)
 
     USERNAME_FIELD = 'email'
     EMAIL_FIELD = 'email'

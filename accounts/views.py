@@ -2,13 +2,14 @@ from datetime import datetime, timedelta
 
 from .models import Account, AccountSolvedProblems
 from .services import get_user_data
-from .serializers import CreateAccountSerializer, RetrieveAccountSerializer, ListAccountSerializer, GoogleAuthSerializer, UploadProfilePicSerializer
+from .serializers import CreateAccountSerializer, RetrieveAccountSerializer, ListAccountSerializer, GoogleAuthSerializer, UploadProfilePicSerializer, GetProfilePictureSerializer
 
 from problems.models import Submission, DifficultyChoices, Problem, DifficultyChoices, SubmissionStatus
 from problems.serializers import SubmissionSerializer
 
 from django.conf import settings
 from django.shortcuts import redirect
+from django.http import HttpResponse
 
 from rest_framework import status
 from rest_framework.views import APIView
@@ -117,23 +118,24 @@ class AccountViewSet(ViewSet):
     @action(detail=False, methods=['POST'], url_path="upload_profile_picture", authentication_classes=[JWTAuthentication])
     def upload_profile_picture(self, request):
         serializer = UploadProfilePicSerializer(data=request.data)
-        if not serializer.is_valid():
-            return Response(serializer.errors, status=400)
-        image = serializer.validated_data.get('image')
-        url = upload_file_from_bytes(request.user.username, image.read())
-        return Response({"message": "File saved successfully", "url": url}, status=200)
+        if serializer.is_valid():
+            account = request.user
+            old_image = request.user.profile_picture
+
+            account.profile_picture = serializer.validated_data["image"]
+            account.save()
+
+            if old_image:
+                old_image.delete(save=False)
+
+            return Response({"message": "Profile picture uploaded successfully."})
+        return Response(serializer.errors, status=400)
     
     @action(detail=False, methods=['GET'], url_path="get_profile_picture", authentication_classes=[JWTAuthentication])
     def get_profile_picture(self, request):
-        try:
-            blob_name = request.user.username
-            b64_image = download_blob(blob_name, f"temp/{blob_name}")
-            b64_image = str(b64_image).replace("b'", "").replace("'", "")
-            return Response({"image": "data:image/jpeg;base64," + b64_image}, status=200)
-        except:
-            print(f"No profile picture found for {request.user.username}")
-            return Response({"message": "No profile picture available"}, status=200)
-    
+        serializer = GetProfilePictureSerializer(request.user)
+        return Response(serializer.data)
+
     @action(detail=False, methods=['GET'], url_path="profile", authentication_classes=[JWTAuthentication])
     def get_profile_info(self, request):
         user = request.user
