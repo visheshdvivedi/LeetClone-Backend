@@ -62,10 +62,6 @@ def get_user_data(validated_data):
     last_name = user_data.get("family_name")
     picture_url = user_data.get("picture")
 
-    # if a google profile picture exists, save it as current user profile picture
-    if picture_url:
-        upload_file_from_url(username, picture_url)
-
     account = Account.objects.filter(username=username).first()
     if not account:
         return Account.objects.create(
@@ -73,6 +69,7 @@ def get_user_data(validated_data):
             email = username,
             login_type = LoginType.GOOGLE,
             first_name = first_name,
-            last_name = last_name
+            last_name = last_name,
+            profile_picture = picture_url
         )
     return account
