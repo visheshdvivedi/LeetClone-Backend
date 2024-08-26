@@ -258,8 +258,7 @@ class GoogleLoginView(APIView):
         try:
             account = get_user_data(data)
         except Exception as ex:
-            print(ex)
-            return Response({ "message": "Failed to get user details from Google" }, status=400)
+            return Response({ "message": "Failed to get user details from Google", "error": ex }, status=400)
 
         refresh = RefreshToken.for_user(account)
         new_redirect = f"{redirect_url}?access={str(refresh.access_token)}&refresh={str(refresh)}"

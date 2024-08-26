@@ -50,8 +50,7 @@ def get_user_data(validated_data):
     error = validated_data.get("error")
 
     if error or not code:
-        params = urlencode({'error': error})
-        return f"{LOGIN_URL}/{params}"
+        raise Exception(error)
     
     access_token = google_get_access_token(code, redirect_uri)
     user_data = google_get_user_info(access_token)
