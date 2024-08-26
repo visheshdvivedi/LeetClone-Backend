@@ -15,7 +15,10 @@ from .serializers import CreateProblemSerializer, ViewProblemSerializer, VoteSer
 from accounts.models import AccountSolvedProblems
 
 from django.conf import settings
+
 from django.db.models import Q
+from django.db import reset_queries, connection
+
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 from .judge import JudgeManager
@@ -39,7 +42,6 @@ class ProblemViewSet(ViewSet):
         return Response(serializer.errors, status=HTTPStatus.BAD_REQUEST)
     
     # cache response for 24 hours
-    @method_decorator(cache_page(60*60*24))
     def retrieve(self, request, pk=None):
         if not pk:
             return Response({"message": "Invalid problem ID"}, status=HTTPStatus.BAD_REQUEST)
@@ -54,7 +56,6 @@ class ProblemViewSet(ViewSet):
         return Response(data)
     
     # cache response for 24 hours
-    @method_decorator(cache_page(60*60*24))
     def list(self, request):
 
         filters = request.GET
