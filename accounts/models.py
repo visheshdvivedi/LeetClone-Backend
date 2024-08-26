@@ -6,6 +6,10 @@ from django.utils import timezone
 def generate_uuid():
     return str(uuid4())
 
+class LoginType(models.IntegerChoices):
+    EMAIL = 0
+    GOOGLE = 1
+
 class AccountManager(BaseUserManager):
     def _create_user(self, email, password, is_staff, is_superuser, **extra_fields):
 
@@ -50,10 +54,20 @@ class Account(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     last_login = models.DateTimeField(null=True, blank=True)
     date_joined = models.DateTimeField(auto_now_add=True)
+
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+
+    login_type = models.IntegerField(choices=LoginType.choices, default=LoginType.EMAIL)
     solved_problems = models.ManyToManyField('problems.Problem', through="AccountSolvedProblems")
+
+    max_streak = models.IntegerField(default=0)
 
     USERNAME_FIELD = 'email'
     EMAIL_FIELD = 'email'
-    REQUIRED_FIELDS = ["username"]
+    REQUIRED_FIELDS = ["username", "first_name", "last_name"]
 
     objects = AccountManager()
+
+    def get_full_name(self):
+        return self.first_name + " " + self.last_name

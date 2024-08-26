@@ -21,7 +21,7 @@ class ListAccountSerializer(serializers.ModelSerializer):
 class RetrieveAccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
-        fields = ['public_id', 'username', 'email', 'is_superuser', 'is_staff']
+        fields = ['public_id', 'username', 'email', 'is_superuser', 'is_staff', 'first_name', 'last_name']
 
 class GoogleAuthSerializer(serializers.Serializer):
     code = serializers.CharField(required=False)

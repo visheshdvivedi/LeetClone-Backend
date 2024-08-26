@@ -1,10 +1,10 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from .models import Account, AccountSolvedProblems
 from .services import get_user_data
 from .serializers import CreateAccountSerializer, RetrieveAccountSerializer, ListAccountSerializer, GoogleAuthSerializer, UploadProfilePicSerializer
 
-from problems.models import Submission, DifficultyChoices, Problem
+from problems.models import Submission, DifficultyChoices, Problem, DifficultyChoices, SubmissionStatus
 from problems.serializers import SubmissionSerializer
 
 from django.conf import settings
@@ -21,7 +21,7 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from .permissions import AccountPermissions
-from .blob import upload_file, download_blob, get_all_blobs
+from .blob import upload_file_from_bytes, download_blob, get_all_blobs
 
 class AccountViewSet(ViewSet):
     authentication_classes = [JWTAuthentication]
@@ -67,7 +67,6 @@ class AccountViewSet(ViewSet):
 
     @action(detail=False, methods=['GET'], url_path="stats", authentication_classes=[JWTAuthentication])
     def get_user_stats(self, request):
-        account = request.user
         output = {
             'solved': {
                 'all': 0,
@@ -121,19 +120,111 @@ class AccountViewSet(ViewSet):
         if not serializer.is_valid():
             return Response(serializer.errors, status=400)
         image = serializer.validated_data.get('image')
-
-        with open(f"temp/{image.name}", "wb") as file:
-            file.write(image.read())
-
-        url = upload_file(request.user.username, f"temp/{image.name}")
+        url = upload_file_from_bytes(request.user.username, image.read())
         return Response({"message": "File saved successfully", "url": url}, status=200)
     
     @action(detail=False, methods=['GET'], url_path="get_profile_picture", authentication_classes=[JWTAuthentication])
     def get_profile_picture(self, request):
-        blob_name = request.user.username
-        b64_image = download_blob(blob_name, f"temp/{blob_name}")
-        b64_image = str(b64_image).replace("b'", "").replace("'", "")
-        return Response({"image": "data:image/jpeg;base64," + b64_image}, status=200)
+        try:
+            blob_name = request.user.username
+            b64_image = download_blob(blob_name, f"temp/{blob_name}")
+            b64_image = str(b64_image).replace("b'", "").replace("'", "")
+            return Response({"image": "data:image/jpeg;base64," + b64_image}, status=200)
+        except:
+            print(f"No profile picture found for {request.user.username}")
+            return Response({"message": "No profile picture available"}, status=200)
+    
+    @action(detail=False, methods=['GET'], url_path="profile", authentication_classes=[JWTAuthentication])
+    def get_profile_info(self, request):
+        user = request.user
+
+        solved_problems_stats = {
+            "total": 0,
+            "count_by_difficulty": {
+                "school": 0, "easy": 0, "medium": 0, "hard": 0
+            },
+            "count_by_language": {},
+            "count_by_tags": {}
+        }
+        solved_problems = AccountSolvedProblems.objects.filter(account=user).all()
+        submissions = Submission.objects.filter(account=user, status=SubmissionStatus.ACCEPTED).all()
+        solved_problems_stats['total'] = len(solved_problems)
+
+        for solved_problem in solved_problems:
+            org_problem = solved_problem.problem
+            
+            # count problems by difficulty
+            if org_problem.difficulty == DifficultyChoices.SCHOOL: 
+                if 'school' in solved_problems_stats['count_by_difficulty']: solved_problems_stats['count_by_difficulty']['school'] += 1
+                else: solved_problems_stats['count_by_difficulty']['school'] = 1
+            elif org_problem.difficulty == DifficultyChoices.EASY: 
+                if 'easy' in solved_problems_stats['count_by_difficulty']: solved_problems_stats['count_by_difficulty']['easy'] += 1
+                else: solved_problems_stats['count_by_difficulty']['school'] = 1
+            elif org_problem.difficulty == DifficultyChoices.MEDIUM: 
+                if 'medium' in solved_problems_stats['count_by_difficulty']: solved_problems_stats['count_by_difficulty']['medium'] += 1
+                else: solved_problems_stats['count_by_difficulty']['medium'] = 1
+            elif org_problem.difficulty == DifficultyChoices.HARD: 
+                if 'hard' in solved_problems_stats['count_by_difficulty']: solved_problems_stats['count_by_difficulty']['hard'] += 1
+                else: solved_problems_stats['count_by_difficulty']['hard'] = 1
+
+            # count problems by tags
+            for tag in org_problem.tags.all():
+                if tag.name in solved_problems_stats['count_by_tags']: solved_problems_stats['count_by_tags'][tag.name] += 1
+                else: solved_problems_stats['count_by_tags'][tag.name] = 1
+
+        for submission in submissions:
+
+            # count submissions by language
+            if submission.language.name in solved_problems_stats['count_by_language']: solved_problems_stats['count_by_language'][submission.language.name] += 1
+            else: solved_problems_stats['count_by_language'][submission.language.name] = 1
+
+        # calculate data for heatmap
+        heatmap = [[0] * 24, [0] * 24, [0] * 24, [0] * 24, [0] * 24, [0] * 24, [0] * 24]
+        start_date = datetime.now() - timedelta(days=168)
+        end_date = datetime.now()
+        
+        # calculate streaks
+        all_time_max = user.max_streak
+        curr_max = 0
+
+        active_days = 0
+        last_active_date = datetime.now()
+        calculate_active_days = True
+
+        for submission in Submission.objects.filter(account=user, date__gte=start_date, date__lte=end_date).order_by('-date').all():
+            
+            submit_day = submission.date.replace(tzinfo=None)
+
+            # calculate streak
+            if calculate_active_days:
+                diff = abs((submit_day - last_active_date).days)
+                if diff == 1:
+                    active_days += 1
+                    last_active_date -= timedelta(days=1)
+                elif diff == 0:
+                    calculate_active_days = False
+
+            # calculate heatmap details
+            diff_days = (end_date - submit_day).days
+            day = submit_day.weekday()
+            heatmap[day][diff_days // 7] += 1
+
+        heatmap = [map[::-1] for map in heatmap]
+        
+        if all_time_max < active_days:
+            user.max_streak = active_days
+            user.save()
+            all_time_max = active_days
+
+        output = {
+            "username": user.username,
+            "full_name": user.get_full_name(),
+            "active_days": active_days,
+            "max_streak": all_time_max,
+            "solved_problems": solved_problems_stats,
+            "heatmap": heatmap
+        }
+        return Response(output)
 
 class LogoutView(APIView):
     authentication_classes = [IsAuthenticated]
@@ -157,26 +248,18 @@ class GoogleLoginView(APIView):
     def get(self, request, *args, **kwargs):
         serializer = GoogleAuthSerializer(data=request.GET)
         redirect_url = settings.GOOGLE_OAUTH_FRONTEND_REDIRECT_URL
-
-        print(f"Frontend redirect URL: {redirect_url}")
         
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
         data = serializer.validated_data
-
         try:
-            user_data = get_user_data(data)
+            account = get_user_data(data)
         except Exception as ex:
             print(ex)
             return Response({ "message": "Failed to get user details from Google" }, status=400)
 
-        if isinstance(user_data, str):
-            return redirect(user_data)
-
-        account = Account.objects.get(email=user_data['email'])
         refresh = RefreshToken.for_user(account)
-
         new_redirect = f"{redirect_url}?access={str(refresh.access_token)}&refresh={str(refresh)}"
-        print("New Redirect:", new_redirect)
+
         return redirect(new_redirect)

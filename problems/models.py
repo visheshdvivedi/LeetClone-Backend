@@ -135,5 +135,5 @@ class Submission(models.Model):
     date = models.DateTimeField(default=datetime.now)
     time_percent = models.FloatField()
     memory_percent = models.FloatField()
-    error_string = models.TextField(null=True)
+    error_string = models.TextField(null=True, blank=True)
     reject_details = models.JSONField(null=True, blank=True)

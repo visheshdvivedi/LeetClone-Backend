@@ -1,13 +1,13 @@
 from django.conf import settings
 from django.core.exceptions import ValidationError
 
-from .models import Account
+from .models import Account, LoginType
+from .blob import upload_file_from_url
 
 from urllib.parse import urlencode
 from typing import Dict, Any
 
 import requests
-import jwt
 
 GOOGLE_ACCESS_TOKEN_OBTAIN_URL = 'https://oauth2.googleapis.com/token'
 GOOGLE_USER_INFO_URL = 'https://www.googleapis.com/oauth2/v3/userinfo'
@@ -46,8 +46,6 @@ def get_user_data(validated_data):
     domain = settings.BASE_API_URL
     redirect_uri = settings.GOOGLE_OAUTH_BACKEND_REDIRECT_URL
 
-    print(f"Backend redirect uri: {redirect_uri}")
-
     code = validated_data.get("code")
     error = validated_data.get("error")
 
@@ -58,14 +56,24 @@ def get_user_data(validated_data):
     access_token = google_get_access_token(code, redirect_uri)
     user_data = google_get_user_info(access_token)
 
-    account = Account.objects.filter(email=user_data.get('email')).first()
-    if not account:
-        Account.objects.get_or_create(
-            username = f"{user_data.get('given_name').lower()}_{user_data.get('family_name').lower()}",
-            email = user_data.get("email")
-        )
+    # get values
+    email = user_data.get("email")
+    username = email.split("@")[0]
+    first_name = user_data.get("given_name")
+    last_name = user_data.get("family_name")
+    picture_url = user_data.get("picture")
 
-    profile_data = {
-        'email': user_data['email'],
-    }
-    return profile_data
+    # if a google profile picture exists, save it as current user profile picture
+    if picture_url:
+        upload_file_from_url(username, picture_url)
+
+    account = Account.objects.filter(username=username).first()
+    if not account:
+        return Account.objects.create(
+            username = username,
+            email = username,
+            login_type = LoginType.GOOGLE,
+            first_name = first_name,
+            last_name = last_name
+        )
+    return account
