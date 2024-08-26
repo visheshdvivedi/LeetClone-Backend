@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -75,7 +76,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-DEBUG = getenv('DEBUG', True)
+DEBUG = False
 
 DATABASES = {
     'default': {
@@ -131,9 +132,9 @@ import sys
 
 PROJECT_ROOT = os.path.normpath(os.path.dirname(__file__))
 
-STATIC_ROOT = ''
+STATIC_ROOT = BASE_DIR / 'static'
 STATIC_URL = '/static/'
-STATICFILES_DIRS = ('static',)
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
