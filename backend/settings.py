@@ -141,7 +141,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.Account'
 
 # all origin related updates
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["leetclone-backend.azurewebsites.net"]
 CORS_ALLOWED_ORIGINS = ["http://localhost:5173", "https://leetclone-frontend.vercel.app"]
 CSRF_TRUSTED_ORIGINS = ["https://leetclone-backend.azurewebsites.net"]
 
