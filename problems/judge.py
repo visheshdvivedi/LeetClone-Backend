@@ -298,9 +298,7 @@ class JudgeManager:
             elif language.name == "javascript":    
                 code = Template(JAVASCRIPT_BOILERPLATE).substitute(args=",".join(args), func_name=func_name, read_inputs=read_inputs, source_code=source_code)
             elif language.name == "java":
-                print("User code:", source_code)
                 code = Template(JAVA_BOILERPLATE).substitute(args=",".join(args), func_name=func_name, read_inputs=read_inputs, source_code=source_code, out_type=out_type, out_print=out_print)
-                print("Final code:", code)
             codes.append(code)
         
         return codes
