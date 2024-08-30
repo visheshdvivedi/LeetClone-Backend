@@ -26,11 +26,11 @@
                         "value": "class Solution:\n    def twoSum(self, nums, target):\n        for i in range(len(nums)):\n            for j in range(i + 1, len(nums)):\n                if nums[i] + nums[j] == target:\n                    return [i, j]"
                     },
                     {
-                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
+                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
                         "value": "function twoSum(nums, target) {\n    for (let i = 0; i < nums.length; i++) {\n        for (let j = i + 1; j < nums.length; j++) {\n            if (nums[i] + nums[j] === target) {\n                return [i, j];\n            }\n        }\n    }\n}"
                     },
                     {
-                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
+                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
                         "value": "class Solution {\n    public int[] twoSum(int[] nums, int target) {\n        for (int i = 0; i < nums.length; i++) {\n            for (int j = i + 1; j < nums.length; j++) {\n                if (nums[i] + nums[j] == target) {\n                    return new int[]{i, j};\n                }\n            }\n        }\n        return new int[0];\n    }\n}"
                     }
                 ]
@@ -45,11 +45,11 @@
                         "value": "class Solution:\n    def twoSum(self, nums, target):\n        hashmap = {}\n        for i, num in enumerate(nums):\n            diff = target - num\n            if diff in hashmap:\n                return [hashmap[diff], i]\n            hashmap[num] = i"
                     },
                     {
-                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
+                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
                         "value": "function twoSum(nums, target) {\n    const hashmap = {};\n    for (let i = 0; i < nums.length; i++) {\n        const diff = target - nums[i];\n        if (hashmap[diff] !== undefined) {\n            return [hashmap[diff], i];\n        }\n        hashmap[nums[i]] = i;\n    }\n}"
                     },
                     {
-                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
+                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
                         "value": "class Solution {\n    public int[] twoSum(int[] nums, int target) {\n        Map<Integer, Integer> hashmap = new HashMap<>();\n        for (int i = 0; i < nums.length; i++) {\n            int diff = target - nums[i];\n            if (hashmap.containsKey(diff)) {\n                return new int[]{hashmap.get(diff), i};\n            }\n            hashmap.put(nums[i], i);\n        }\n        return new int[0];\n    }\n}"
                     }
                 ]
@@ -282,11 +282,11 @@
                         "value": "class Solution:\n    def isPalindrome(self, s: str) -> bool:\n        left, right = 0, len(s) - 1\n        while left < right:\n            if s[left] != s[right]:\n                return False\n            left += 1\n            right -= 1\n        return True"
                     },
                     {
-                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
+                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
                         "value": "function isPalindrome(s) {\n    let left = 0;\n    let right = s.length - 1;\n    while (left < right) {\n        if (s[left] !== s[right]) {\n            return false;\n        }\n        left++;\n        right--;\n    }\n    return true;\n}"
                     },
                     {
-                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
+                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
                         "value": "class Solution {\n    public boolean isPalindrome(String s) {\n        int left = 0, right = s.length() - 1;\n        while (left < right) {\n            if (s.charAt(left) != s.charAt(right)) {\n                return false;\n            }\n            left++;\n            right--;\n        }\n        return true;\n    }\n}"
                     }
                 ]
@@ -303,7 +303,7 @@
                     },
                     {
                         "name": "output",
-                        "type": 1,
+                        "type": 7,
                         "value": true
                     }
                 ]
@@ -318,7 +318,7 @@
                     },
                     {
                         "name": "output",
-                        "type": 1,
+                        "type": 7,
                         "value": false
                     }
                 ]
@@ -333,7 +333,7 @@
                     },
                     {
                         "name": "output",
-                        "type": 1,
+                        "type": 7,
                         "value": true
                     }
                 ]
@@ -348,7 +348,7 @@
                     },
                     {
                         "name": "output",
-                        "type": 1,
+                        "type": 7,
                         "value": true
                     }
                 ]
@@ -363,7 +363,7 @@
                     },
                     {
                         "name": "output",
-                        "type": 1,
+                        "type": 7,
                         "value": false
                     }
                 ]
@@ -378,7 +378,7 @@
                     },
                     {
                         "name": "output",
-                        "type": 1,
+                        "type": 7,
                         "value": true
                     }
                 ]
@@ -393,7 +393,7 @@
                     },
                     {
                         "name": "output",
-                        "type": 1,
+                        "type": 7,
                         "value": true
                     }
                 ]
@@ -408,7 +408,7 @@
                     },
                     {
                         "name": "output",
-                        "type": 1,
+                        "type": 7,
                         "value": false
                     }
                 ]
@@ -423,7 +423,7 @@
                     },
                     {
                         "name": "output",
-                        "type": 1,
+                        "type": 7,
                         "value": true
                     }
                 ]
@@ -438,7 +438,7 @@
                     },
                     {
                         "name": "output",
-                        "type": 1,
+                        "type": 7,
                         "value": false
                     }
                 ]
@@ -469,11 +469,11 @@
                         "value": "class Solution:\n    def sumOfDigits(self, n: int) -> int:\n        total = 0\n        while n > 0:\n            total += n % 10\n            n //= 10\n        return total"
                     },
                     {
-                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
+                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
                         "value": "function sumOfDigits(n) {\n    let total = 0;\n    while (n > 0) {\n        total += n % 10;\n        n = Math.floor(n / 10);\n    }\n    return total;\n}"
                     },
                     {
-                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
+                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
                         "value": "class Solution {\n    public int sumOfDigits(int n) {\n        int total = 0;\n        while (n > 0) {\n            total += n % 10;\n            n /= 10;\n        }\n        return total;\n    }\n}"
                     }
                 ]
@@ -641,11 +641,11 @@
                         "value": "class Solution:\n    def maxOfTwoNumbers(self, a: int, b: int) -> int:\n        return a if a > b else b"
                     },
                     {
-                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
+                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
                         "value": "function maxOfTwoNumbers(a, b) {\n    return a > b ? a : b;\n}"
                     },
                     {
-                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
+                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
                         "value": "class Solution {\n    public int maxOfTwoNumbers(int a, int b) {\n        return a > b ? a : b;\n    }\n}"
                     }
                 ]
@@ -878,11 +878,11 @@
                         "value": "class Solution:\n    def findAverage(self, nums: List[int]) -> float:\n        return sum(nums) / len(nums)"
                     },
                     {
-                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
+                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
                         "value": "function findAverage(nums) {\n    let sum = 0;\n    for (let num of nums) {\n        sum += num;\n    }\n    return sum / nums.length;\n}"
                     },
                     {
-                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
+                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
                         "value": "class Solution {\n    public double findAverage(int[] nums) {\n        int sum = 0;\n        for (int num : nums) {\n            sum += num;\n        }\n        return (double) sum / nums.length;\n    }\n}"
                     }
                 ]
@@ -960,11 +960,11 @@
                         "value": "class Solution:\n    def countVowels(self, s: str) -> int:\n        vowels = set('aeiouAEIOU')\n        return sum(1 for char in s if char in vowels)"
                     },
                     {
-                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
+                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
                         "value": "function countVowels(s) {\n    const vowels = new Set('aeiouAEIOU');\n    let count = 0;\n    for (let char of s) {\n        if (vowels.has(char)) {\n            count++;\n        }\n    }\n    return count;\n}"
                     },
                     {
-                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
+                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
                         "value": "class Solution {\n    public int countVowels(String s) {\n        Set<Character> vowels = Set.of('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U');\n        int count = 0;\n        for (char ch : s.toCharArray()) {\n            if (vowels.contains(ch)) {\n                count++;\n            }\n        }\n        return count;\n    }\n}"
                     }
                 ]
@@ -1042,11 +1042,11 @@
                         "value": "class Solution:\n    def countChar(self, s: str, char: str) -> int:\n        char = char.lower()\n        return sum(1 for c in s.lower() if c == char)"
                     },
                     {
-                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
+                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
                         "value": "function countChar(s, char) {\n    char = char.toLowerCase();\n    let count = 0;\n    for (let c of s.toLowerCase()) {\n        if (c === char) {\n            count++;\n        }\n    }\n    return count;\n}"
                     },
                     {
-                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
+                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
                         "value": "class Solution {\n    public int countChar(String s, char ch) {\n        ch = Character.toLowerCase(ch);\n        int count = 0;\n        for (char c : s.toLowerCase().toCharArray()) {\n            if (c == ch) {\n                count++;\n            }\n        }\n        return count;\n    }\n}"
                     }
                 ]
@@ -1282,11 +1282,11 @@
                         "value": "class Solution:\n    def lengthOfLongestSubstring(self, s: str) -> int:\n        char_set = set()\n        left = 0\n        max_length = 0\n\n        for right in range(len(s)):\n            while s[right] in char_set:\n                char_set.remove(s[left])\n                left += 1\n            char_set.add(s[right])\n            max_length = max(max_length, right - left + 1)\n\n        return max_length"
                     },
                     {
-                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
+                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
                         "value": "function lengthOfLongestSubstring(s) {\n    let charSet = new Set();\n    let left = 0;\n    let maxLength = 0;\n\n    for (let right = 0; right < s.length; right++) {\n        while (charSet.has(s[right])) {\n            charSet.delete(s[left]);\n            left++;\n        }\n        charSet.add(s[right]);\n        maxLength = Math.max(maxLength, right - left + 1);\n    }\n\n    return maxLength;\n}"
                     },
                     {
-                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
+                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
                         "value": "import java.util.HashSet;\n\nclass Solution {\n    public int lengthOfLongestSubstring(String s) {\n        HashSet<Character> charSet = new HashSet<>();\n        int left = 0, maxLength = 0;\n\n        for (int right = 0; right < s.length(); right++) {\n            while (charSet.contains(s.charAt(right))) {\n                charSet.remove(s.charAt(left));\n                left++;\n            }\n            charSet.add(s.charAt(right));\n            maxLength = Math.max(maxLength, right - left + 1);\n        }\n\n        return maxLength;\n    }\n}"
                     }
                 ]
@@ -1472,11 +1472,11 @@
                         "value": "class Solution:\n    def subarraySum(self, nums: List[int], k: int) -> int:\n        prefix_sum = 0\n        count = 0\n        prefix_sum_count = {0: 1}\n\n        for num in nums:\n            prefix_sum += num\n            if prefix_sum - k in prefix_sum_count:\n                count += prefix_sum_count[prefix_sum - k]\n            if prefix_sum in prefix_sum_count:\n                prefix_sum_count[prefix_sum] += 1\n            else:\n                prefix_sum_count[prefix_sum] = 1\n\n        return count"
                     },
                     {
-                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
+                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
                         "value": "function subarraySum(nums, k) {\n    let prefixSum = 0;\n    let count = 0;\n    let prefixSumCount = {0: 1};\n\n    for (let num of nums) {\n        prefixSum += num;\n        if (prefixSumCount[prefixSum - k] !== undefined) {\n            count += prefixSumCount[prefixSum - k];\n        }\n        if (prefixSumCount[prefixSum] !== undefined) {\n            prefixSumCount[prefixSum] += 1;\n        } else {\n            prefixSumCount[prefixSum] = 1;\n        }\n    }\n\n    return count;\n}"
                     },
                     {
-                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
+                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
                         "value": "import java.util.HashMap;\n\nclass Solution {\n    public int subarraySum(int[] nums, int k) {\n        int prefixSum = 0, count = 0;\n        HashMap<Integer, Integer> prefixSumCount = new HashMap<>();\n        prefixSumCount.put(0, 1);\n\n        for (int num : nums) {\n            prefixSum += num;\n            if (prefixSumCount.containsKey(prefixSum - k)) {\n                count += prefixSumCount.get(prefixSum - k);\n            }\n            prefixSumCount.put(prefixSum, prefixSumCount.getOrDefault(prefixSum, 0) + 1);\n        }\n\n        return count;\n    }\n}"
                     }
                 ]
@@ -1712,11 +1712,11 @@
                         "value": "class Solution:\n    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:\n        if len(nums1) > len(nums2):\n            nums1, nums2 = nums2, nums1\n        x, y = len(nums1), len(nums2)\n        low, high = 0, x\n        while low <= high:\n            partitionX = (low + high) // 2\n            partitionY = (x + y + 1) // 2 - partitionX\n            maxX = float('-inf') if partitionX == 0 else nums1[partitionX - 1]\n            maxY = float('-inf') if partitionY == 0 else nums2[partitionY - 1]\n            minX = float('inf') if partitionX == x else nums1[partitionX]\n            minY = float('inf') if partitionY == y else nums2[partitionY]\n            if maxX <= minY and maxY <= minX:\n                if (x + y) % 2 == 0:\n                    return (max(maxX, maxY) + min(minX, minY)) / 2\n                else:\n                    return max(maxX, maxY)\n            elif maxX > minY:\n                high = partitionX - 1\n            else:\n                low = partitionX + 1"
                     },
                     {
-                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
+                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
                         "value": "function findMedianSortedArrays(nums1, nums2) {\n    if (nums1.length > nums2.length) [nums1, nums2] = [nums2, nums1];\n    let x = nums1.length, y = nums2.length;\n    let low = 0, high = x;\n    while (low <= high) {\n        let partitionX = (low + high) >> 1;\n        let partitionY = ((x + y + 1) >> 1) - partitionX;\n        let maxX = partitionX == 0 ? -Infinity : nums1[partitionX - 1];\n        let maxY = partitionY == 0 ? -Infinity : nums2[partitionY - 1];\n        let minX = partitionX == x ? Infinity : nums1[partitionX];\n        let minY = partitionY == y ? Infinity : nums2[partitionY];\n        if (maxX <= minY && maxY <= minX) {\n            if ((x + y) % 2 == 0)\n                return (Math.max(maxX, maxY) + Math.min(minX, minY)) / 2;\n            else\n                return Math.max(maxX, maxY);\n        } else if (maxX > minY) {\n            high = partitionX - 1;\n        } else {\n            low = partitionX + 1;\n        }\n    }\n}"
                     },
                     {
-                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
+                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
                         "value": "class Solution {\n    public double findMedianSortedArrays(int[] nums1, int[] nums2) {\n        if (nums1.length > nums2.length) return findMedianSortedArrays(nums2, nums1);\n        int x = nums1.length, y = nums2.length;\n        int low = 0, high = x;\n        while (low <= high) {\n            int partitionX = (low + high) / 2;\n            int partitionY = (x + y + 1) / 2 - partitionX;\n            int maxX = (partitionX == 0) ? Integer.MIN_VALUE : nums1[partitionX - 1];\n            int maxY = (partitionY == 0) ? Integer.MIN_VALUE : nums2[partitionY - 1];\n            int minX = (partitionX == x) ? Integer.MAX_VALUE : nums1[partitionX];\n            int minY = (partitionY == y) ? Integer.MAX_VALUE : nums2[partitionY];\n            if (maxX <= minY && maxY <= minX) {\n                if ((x + y) % 2 == 0)\n                    return ((double)Math.max(maxX, maxY) + Math.min(minX, minY)) / 2;\n                else\n                    return (double)Math.max(maxX, maxY);\n            } else if (maxX > minY) {\n                high = partitionX - 1;\n            } else {\n                low = partitionX + 1;\n            }\n        }\n        throw new IllegalArgumentException();\n    }\n}"
                     }
                 ]
@@ -1872,11 +1872,11 @@
                         "value": "class Solution:\n    def longestConsecutive(self, nums: List[int]) -> int:\n        num_set = set(nums)\n        longest_streak = 0\n        for num in num_set:\n            if num - 1 not in num_set:\n                current_num = num\n                current_streak = 1\n                while current_num + 1 in num_set:\n                    current_num += 1\n                    current_streak += 1\n                longest_streak = max(longest_streak, current_streak)\n        return longest_streak"
                     },
                     {
-                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
+                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
                         "value": "function longestConsecutive(nums) {\n    const numSet = new Set(nums);\n    let longestStreak = 0;\n    for (let num of numSet) {\n        if (!numSet.has(num - 1)) {\n            let currentNum = num;\n            let currentStreak = 1;\n            while (numSet.has(currentNum + 1)) {\n                currentNum += 1;\n                currentStreak += 1;\n            }\n            longestStreak = Math.max(longestStreak, currentStreak);\n        }\n    }\n    return longestStreak;\n}"
                     },
                     {
-                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
+                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
                         "value": "import java.util.HashSet;\nimport java.util.Set;\n\nclass Solution {\n    public int longestConsecutive(int[] nums) {\n        Set<Integer> numSet = new HashSet<>();\n        for (int num : nums) {\n            numSet.add(num);\n        }\n        int longestStreak = 0;\n        for (int num : numSet) {\n            if (!numSet.contains(num - 1)) {\n                int currentNum = num;\n                int currentStreak = 1;\n                while (numSet.contains(currentNum + 1)) {\n                    currentNum += 1;\n                    currentStreak += 1;\n                }\n                longestStreak = Math.max(longestStreak, currentStreak);\n            }\n        }\n        return longestStreak;\n    }\n}"
                     }
                 ]

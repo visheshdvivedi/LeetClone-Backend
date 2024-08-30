@@ -24,6 +24,7 @@ class FieldType(models.IntegerChoices):
     ARRAY_STR = 4, "String Array",
     ARRAY_INT_2D = 5, "2D Integer Array"
     ARRAY_STR_2D = 6, "2D String Array"
+    BOOLEAN = 7, "Boolean"
 
 class SubmissionStatus(models.IntegerChoices):
     ACCEPTED = 1, "Accepted"

@@ -79,7 +79,8 @@ class Main{
     public static void main(String args[]){
         ${read_inputs}
 
-        ${out_type} output = Solution.${func_name}(${args});
+        Solution sol = new Solution();
+        ${out_type} output = sol.${func_name}(${args});
         ${out_print}
     }
 }
@@ -131,16 +132,21 @@ class JudgeManager:
                         func_return_type = "int"
                     elif input.type == FieldType.STRING:
                         func_return_type = "string"
+                    elif input.type == FieldType.BOOLEAN:
+                        func_return_type = "boolean"
                     elif input.type == FieldType.ARRAY_INT:
                         func_return_type = "int[]"
                     elif input.type == FieldType.ARRAY_STR:
                         func_return_type = "string[]"
+
                     continue
 
                 if input.type == FieldType.INT:
                     func_params.append(f"int {input.name}")
                 elif input.type == FieldType.STRING:
                     func_params.append(f"string {input.name}")
+                elif input.type == FieldType.BOOLEAN:
+                    func_params.append(f"boolean {input.name}")
                 elif input.type == FieldType.ARRAY_INT:
                     func_params.append(f"int[] {input.name}")
                 elif input.type == FieldType.ARRAY_STR:
@@ -251,20 +257,22 @@ class JudgeManager:
 
             for input in inputs:
                 if input.name == "output":
-                    if input.type == 1:
+                    if input.type == FieldType.INT:
                         out_type = "int"
                         out_print = "System.out.print(output);"
-                    elif input.type == 2:
+                    elif input.type == FieldType.STRING:
                         out_type = "String"
                         out_print = "System.out.print(output);"
-                    elif input.type == 3:
+                    elif input.type == FieldType.ARRAY_INT:
                         out_type = "int[]"
                         out_print = "Main.printIntArray(output);"
-                    elif input.type == 4:
-                        out_type = "int[]"
+                    elif input.type == FieldType.ARRAY_STR:
+                        out_type = "String[]"
                         out_print = "Main.printStringArray(output);"
+                    elif input.type == FieldType.BOOLEAN:
+                        out_type = "boolean"
+                        out_print = "System.out.print(output);"
                     continue
-
                 args.append(input.name)
 
                 if language.name == "python":
@@ -320,6 +328,8 @@ class JudgeManager:
             out = out.replace("[ ", "[").replace(" ]", "]")
         if "\n" in out:
             out = out.replace("\n", "")
+        if out == "true": out = "True"
+        elif out == "false": out = "False"
         return out
     
     def get_submission_status(self, testcases, submissions):

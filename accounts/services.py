@@ -24,7 +24,6 @@ def google_get_access_token(code:str, redirect_uri:str) -> str:
 
     response = requests.post(GOOGLE_ACCESS_TOKEN_OBTAIN_URL, data=data)
     if not response.ok:
-        print(response.content)
         raise ValidationError(response.content)
     
     access_token = response.json()['access_token']
