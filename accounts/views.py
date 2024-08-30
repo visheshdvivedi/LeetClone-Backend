@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 
 from .models import Account, AccountSolvedProblems
 from .services import get_user_data
-from .serializers import CreateAccountSerializer, RetrieveAccountSerializer, ListAccountSerializer, GoogleAuthSerializer, UploadProfilePicSerializer, GetProfilePictureSerializer
+from .serializers import CreateAccountSerializer, RetrieveAccountSerializer, ListAccountSerializer, GoogleAuthSerializer, UploadProfilePicSerializer, GetProfilePictureSerializer, UpdateProfileSerializer
 
 from problems.models import Submission, DifficultyChoices, Problem, DifficultyChoices, SubmissionStatus
 from problems.serializers import SubmissionSerializer
@@ -44,6 +44,35 @@ class AccountViewSet(ViewSet):
         account = Account.objects.filter(is_active=True, public_id=pk).first()
         serializer = RetrieveAccountSerializer(account)
         return Response(serializer.data)
+    
+    @action(detail=False, methods=['PUT'], url_path="update_profile", authentication_classes=[JWTAuthentication])
+    def update_profile(self, request):
+        serializer = UpdateProfileSerializer(data=request.data)
+        user = request.user
+
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=400)
+        
+        email = serializer.validated_data.get("email")
+        username = serializer.validated_data.get("username")
+        first_name = serializer.validated_data.get("first_name")
+        last_name = serializer.validated_data.get("last_name")
+        password = serializer.validated_data.get("password")
+        confirm_password = serializer.validated_data.get("confirm_password")
+
+        if password and confirm_password and password != confirm_password:
+            return Response({"message": "Password and confirm password must be equal"}, status=400)
+        
+        user.email = email
+        user.username = username
+        user.first_name = first_name
+        user.last_name = last_name
+        
+        if password:
+            user.set_password(password)
+
+        user.save()
+        return Response({"message": "Profile updated successfully"}, status=200)
     
     @action(detail=False, methods=['GET'], url_path='me', authentication_classes=[JWTAuthentication])
     def get_me_details(self, request):
@@ -219,7 +248,10 @@ class AccountViewSet(ViewSet):
             all_time_max = active_days
 
         output = {
+            "email": user.email,
             "username": user.username,
+            "first_name": user.first_name,
+            "last_name": user.last_name,
             "full_name": user.get_full_name(),
             "active_days": active_days,
             "max_streak": all_time_max,

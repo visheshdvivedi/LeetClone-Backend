@@ -148,12 +148,11 @@ class JudgeManager:
                     func_params.append(f"string[] {input.name}")
 
             func_params = ", ".join(func_params)
-            return Template(JAVA_DEFAULT_CODE_BOILERPLATE).substitute(func_name=func_name, func_return_type=func_return_type, func_params=func_params)
+            code = Template(JAVA_DEFAULT_CODE_BOILERPLATE).substitute(func_name=func_name, func_return_type=func_return_type, func_params=func_params)
+            return code
 
     def run(self, code, language, stdin):
         try:
-
-            code.replace()
             response = requests.post(
                 self.url + "/submissions?wait=true",
                 data={

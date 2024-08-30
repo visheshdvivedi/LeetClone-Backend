@@ -77,7 +77,6 @@ class ProblemViewSet(ViewSet):
             else:
                 filter_obj &=Q(tags__name__contains=tags)
 
-        print("Final query object:", filter_obj)
         problems = Problem.objects.filter(filter_obj).all()
         serializer = ListProblemSerializer(problems, many=True)
         return Response(serializer.data)
@@ -133,6 +132,8 @@ class ProblemViewSet(ViewSet):
             # add stdin and stdout code
             code = base64.b64decode(code).decode('utf-8')
             codes = JUDGE_MANAGER.create_boilerplate_code(code, problem, language)
+
+            print(codes[0])
             
             # run code
             count = problem.testcases.filter(is_sample=True).count()
