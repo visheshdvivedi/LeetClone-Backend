@@ -132,8 +132,6 @@ class ProblemViewSet(ViewSet):
             # add stdin and stdout code
             code = base64.b64decode(code).decode('utf-8')
             codes = JUDGE_MANAGER.create_boilerplate_code(code, problem, language)
-
-            print(codes[0])
             
             # run code
             count = problem.testcases.filter(is_sample=True).count()
