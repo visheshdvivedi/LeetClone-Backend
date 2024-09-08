@@ -40,6 +40,7 @@ class Problem(models.Model):
     description = models.TextField()
     constraints = models.TextField()
     tags = models.ManyToManyField("Tag", through="ProblemTag")
+    published = models.BooleanField(default=True)
 
     def __str__(self) -> str:
         return self.name

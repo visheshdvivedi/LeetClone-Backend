@@ -115,7 +115,7 @@ class AccountViewSet(ViewSet):
         }
 
         # get all problems count
-        problems = Problem.objects.all()
+        problems = Problem.objects.filter(published=True).all()
         for problem in problems:
             output['total']['all'] += 1
 

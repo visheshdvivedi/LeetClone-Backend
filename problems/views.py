@@ -46,7 +46,7 @@ class ProblemViewSet(ViewSet):
         if not pk:
             return Response({"message": "Invalid problem ID"}, status=HTTPStatus.BAD_REQUEST)
 
-        problem = Problem.objects.filter(public_id=pk).first()
+        problem = Problem.objects.filter(published=True, public_id=pk).first()
         if not problem:
             return Response({"message": "Invalid problem ID"}, status=HTTPStatus.BAD_REQUEST)
 
@@ -77,7 +77,7 @@ class ProblemViewSet(ViewSet):
             else:
                 filter_obj &=Q(tags__name__contains=tags)
 
-        problems = Problem.objects.filter(filter_obj).all()
+        problems = Problem.objects.filter(published=True).filter(filter_obj).all()
         serializer = ListProblemSerializer(problems, many=True)
         return Response(serializer.data)
     
@@ -93,7 +93,7 @@ class ProblemViewSet(ViewSet):
         if serializer.is_valid():
             vote_type = serializer.validated_data.get("vote_type")
 
-            problem = Problem.objects.filter(public_id=pk).first()
+            problem = Problem.objects.filter(public_id=pk, published=True).first()
             if not problem:
                 return Response({"message": "Invalid problem ID"}, status=HTTPStatus.BAD_REQUEST)
             
@@ -125,7 +125,7 @@ class ProblemViewSet(ViewSet):
                 return Response({"message", "Invalid language ID"}, status=HTTPStatus.BAD_REQUEST)
             
             # check if problem id is valid or not
-            problem = Problem.objects.filter(public_id=pk).first()
+            problem = Problem.objects.filter(public_id=pk, published=True).first()
             if not problem:
                 return Response({"message": "Invalid problem ID"}, status=HTTPStatus.BAD_REQUEST)
             
@@ -169,7 +169,7 @@ class ProblemViewSet(ViewSet):
     def submissions(self, request, pk=None):
 
         # check if problem id is valid or not
-        problem = Problem.objects.filter(public_id=pk).first()
+        problem = Problem.objects.filter(public_id=pk, published=True).first()
         if not problem:
             return Response({"message": "Invalid problem ID"}, status=HTTPStatus.BAD_REQUEST)
         
@@ -192,7 +192,7 @@ class ProblemViewSet(ViewSet):
                 return Response({"message", "Invalid language ID"}, status=HTTPStatus.BAD_REQUEST)
             
             # check if problem id is valid or not
-            problem = Problem.objects.filter(public_id=pk).first()
+            problem = Problem.objects.filter(public_id=pk, published=True).first()
             if not problem:
                 return Response({"message": "Invalid problem ID"}, status=HTTPStatus.BAD_REQUEST)
             
