@@ -25,6 +25,7 @@ class FieldType(models.IntegerChoices):
     ARRAY_INT_2D = 5, "2D Integer Array"
     ARRAY_STR_2D = 6, "2D String Array"
     BOOLEAN = 7, "Boolean"
+    FLOAT = 8, "Float"
 
 class SubmissionStatus(models.IntegerChoices):
     ACCEPTED = 1, "Accepted"
@@ -33,7 +34,7 @@ class SubmissionStatus(models.IntegerChoices):
 
 class Problem(models.Model):
     public_id = models.UUIDField(default=generate_default_uuid, unique=True)
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     likes = models.IntegerField(default=0)
     dislikes = models.IntegerField(default=0)
     difficulty = models.IntegerField(choices=DifficultyChoices.choices)

@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from .models import Account, AccountSolvedProblems
 from .services import get_user_data
@@ -204,48 +204,34 @@ class AccountViewSet(ViewSet):
                 else: solved_problems_stats['count_by_tags'][tag.name] = 1
 
         for submission in submissions:
-
             # count submissions by language
-            if submission.language.name in solved_problems_stats['count_by_language']: solved_problems_stats['count_by_language'][submission.language.name] += 1
-            else: solved_problems_stats['count_by_language'][submission.language.name] = 1
+            if submission.language.name in solved_problems_stats['count_by_language']: 
+                solved_problems_stats['count_by_language'][submission.language.name] += 1
+            else: 
+                solved_problems_stats['count_by_language'][submission.language.name] = 1
 
         # calculate data for heatmap
-        heatmap = [[0] * 24, [0] * 24, [0] * 24, [0] * 24, [0] * 24, [0] * 24, [0] * 24]
-        start_date = datetime.now() - timedelta(days=168)
-        end_date = datetime.now()
-        
-        # calculate streaks
-        all_time_max = user.max_streak
-        curr_max = 0
+        heatmap = [[0 for _ in range(24)] for _ in range(7)]
+        start_date = datetime.now(timezone.utc) - timedelta(days=168)
+        end_date = datetime.now(timezone.utc)
+
+        submission_dates = set()
+        submissions = Submission.objects.filter(date__gte=start_date, date__lte=end_date).all()
+        for submission in submissions:
+            gap_days = (end_date - submission.date).days
+            heatmap[submission.date.weekday()][gap_days % 24] += 1
+            submission_dates.add(submission.date)
 
         active_days = 0
-        last_active_date = datetime.now()
-        calculate_active_days = True
+        curr = datetime.now(timezone.utc)
+        for date in sorted(submission_dates, reverse=True):
+            if (curr - date).days <= 1:
+                active_days += 1
+                curr - date
 
-        for submission in Submission.objects.filter(account=user, date__gte=start_date, date__lte=end_date).order_by('-date').all():
-            
-            submit_day = submission.date.replace(tzinfo=None)
-
-            # calculate streak
-            if calculate_active_days:
-                diff = abs((submit_day - last_active_date).days)
-                if diff == 1:
-                    active_days += 1
-                    last_active_date -= timedelta(days=1)
-                elif diff == 0:
-                    calculate_active_days = False
-
-            # calculate heatmap details
-            diff_days = (end_date - submit_day).days
-            day = submit_day.weekday()
-            heatmap[day][diff_days // 7] += 1
-
-        heatmap = [map[::-1] for map in heatmap]
-        
-        if all_time_max < active_days:
+        if active_days > user.max_streak:
             user.max_streak = active_days
             user.save()
-            all_time_max = active_days
 
         output = {
             "email": user.email,
@@ -254,7 +240,7 @@ class AccountViewSet(ViewSet):
             "last_name": user.last_name,
             "full_name": user.get_full_name(),
             "active_days": active_days,
-            "max_streak": all_time_max,
+            "max_streak": user.max_streak,
             "solved_problems": solved_problems_stats,
             "heatmap": heatmap
         }

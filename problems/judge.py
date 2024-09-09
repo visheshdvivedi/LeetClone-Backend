@@ -138,19 +138,21 @@ class JudgeManager:
                         func_return_type = "int[]"
                     elif input.type == FieldType.ARRAY_STR:
                         func_return_type = "string[]"
-
-                    continue
-
-                if input.type == FieldType.INT:
-                    func_params.append(f"int {input.name}")
-                elif input.type == FieldType.STRING:
-                    func_params.append(f"string {input.name}")
-                elif input.type == FieldType.BOOLEAN:
-                    func_params.append(f"boolean {input.name}")
-                elif input.type == FieldType.ARRAY_INT:
-                    func_params.append(f"int[] {input.name}")
-                elif input.type == FieldType.ARRAY_STR:
-                    func_params.append(f"string[] {input.name}")
+                    elif input.type == FieldType.FLOAT:
+                        func_return_type = "float"
+                else:
+                    if input.type == FieldType.INT:
+                        func_params.append(f"int {input.name}")
+                    elif input.type == FieldType.STRING:
+                        func_params.append(f"string {input.name}")
+                    elif input.type == FieldType.BOOLEAN:
+                        func_params.append(f"boolean {input.name}")
+                    elif input.type == FieldType.ARRAY_INT:
+                        func_params.append(f"int[] {input.name}")
+                    elif input.type == FieldType.ARRAY_STR:
+                        func_params.append(f"string[] {input.name}")
+                    elif input.type == FieldType.FLOAT:
+                        func_params.append(f"float {input.name}")
 
             func_params = ", ".join(func_params)
             code = Template(JAVA_DEFAULT_CODE_BOILERPLATE).substitute(func_name=func_name, func_return_type=func_return_type, func_params=func_params)
@@ -272,6 +274,9 @@ class JudgeManager:
                     elif input.type == FieldType.BOOLEAN:
                         out_type = "boolean"
                         out_print = "System.out.print(output);"
+                    elif input.type == FieldType.FLOAT:
+                        out_type = "float"
+                        out_print = "System.out.println(output);"
                     continue
                 args.append(input.name)
 
@@ -282,24 +287,16 @@ class JudgeManager:
                     read_inputs += f"let {input.name} = {input.value};\n"
 
                 elif language.name == "java":
-                    if input.type == 1:
+                    if input.type == FieldType.INT:
                         read_inputs += f"int {input.name} = {input.value};\n"
-                    elif input.type == 2:
+                    elif input.type == FieldType.STRING:
                         read_inputs += f"String {input.name} = {input.value};\n"
-                    elif input.type == 3:
+                    elif input.type == FieldType.ARRAY_INT:
                         read_inputs += f"int[] {input.name} = new int[] "+"{ "+ input.value.replace("[", "").replace("]", "") +" };\n"
-                    elif input.type == 4:
+                    elif input.type == FieldType.ARRAY_STR:
                         read_inputs += f"String[] {input.name} = new String[] "+"{ "+ input.value.replace("[", "").replace("]", "") +" };\n"
-
-                elif language.name == "csharp":
-                    if input.type == 1:
-                        read_inputs += f"int {input.name} = {input.value};\n"
-                    elif input.type == 2:
-                        read_inputs += f"string {input.name} = {input.value};\n"
-                    elif input.type == 3:
-                        read_inputs += f"int[] {input.name} = new int[] "+"{ "+ input.value.replace("[", "").replace("]", "") +" };\n"
-                    elif input.type == 4:
-                        read_inputs += f"string[] {input.name} = new string[] "+"{ "+ input.value.replace("[", "").replace("]", "") +" };\n"
+                    elif input.type == FieldType.FLOAT:
+                        read_inputs += f"float {input.name} = {input.value};\n"
             
             if language.name == "python":
                 code = Template(PYTHON_BOILERPLATE).substitute(args=",".join(args), func_name=func_name, read_inputs=read_inputs, source_code=source_code)
