@@ -7,6 +7,7 @@ from rest_framework_simplejwt.views import (
 )
 from django.conf import settings
 from django.conf.urls.static import static
+from debug_toolbar.toolbar import debug_toolbar_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -14,5 +15,5 @@ urlpatterns = [
     path("api/v1/", include("accounts.urls")),
     path('api/v1/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/v1/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/v1/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
-]
+    path('api/v1/token/verify/', TokenVerifyView.as_view(), name='token_verify')
+] + debug_toolbar_urls()

@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'accounts',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
+    'debug_toolbar'
 ]
 
 MIDDLEWARE = [
@@ -49,6 +50,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
+]
+
+INTERNAL_IPS = [
+    "127.0.0.1",
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -127,7 +133,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-import os.path  
+import os.path
 import sys
 
 PROJECT_ROOT = os.path.normpath(os.path.dirname(__file__))
@@ -180,3 +186,7 @@ JUDGE_URL = os.environ.get("JUDGE_URL")
 STORAGE_ACCOUNT_URL = os.environ.get("STORAGE_ACCOUNT_URL")
 STORAGE_CONN_STRING = os.environ.get("STORAGE_CONN_STRING")
 STORAGE_CONTAINER_NAME = os.environ.get("STORAGE_CONTAINER_NAME")
+
+# use sqlite for tests and coverage
+if 'test' in sys.argv or 'test_coverage' in sys.argv:
+    DATABASES['default'] = {'ENGINE': 'django.db.backends.sqlite3'}
