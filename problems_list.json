@@ -22,15 +22,15 @@
                 "algorithm": "Iterate through the array, for each element, iterate through the rest of the array to find if any pair sums up to the target. Return the indices of the two numbers.",
                 "implementations": [
                     {
-                        "language": "fa646bc3-327a-4d34-b80f-1f88eabdcf38",
+                        "language": "44b9b99d-57f4-4b37-9fe9-37fabeec5c97",
                         "value": "class Solution:\n    def twoSum(self, nums, target):\n        diffs = dict()\n        for i in range(len(nums)):\n            diff = target - nums[i]\n            if diff in diffs:\n                return [diffs[diff], i]\n            else:\n                diffs[nums[i]] = i\n"
                     },
                     {
-                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
-                        "value": "ffunction twoSum(nums, target) {\n    let diffs = {}\n    for (let i=0; i<nums.length; i++) {\n        let diff = target - nums[i];\n        if (diffs.hasOwnProperty(diff))\n            return [diffs[diff], i];\n        else\n            diffs[nums[i]] = i;\n    }\n}\n"
+                        "language": "1ce11710-05c2-4e59-a089-fce2e4093652",
+                        "value": "function twoSum(nums, target) {\n    let diffs = {}\n    for (let i=0; i<nums.length; i++) {\n        let diff = target - nums[i];\n        if (diffs.hasOwnProperty(diff))\n            return [diffs[diff], i];\n        else\n            diffs[nums[i]] = i;\n    }\n}\n"
                     },
                     {
-                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
+                        "language": "8ad6625d-ae18-4b3b-9f6f-3c3745d84e20",
                         "value": "import java.util.Map;\nimport java.util.HashMap;\n\nclass Solution {\n    public static int[] twoSum(int[] nums, int target) {\n        Map<Integer, Integer> map = new HashMap<>();\n        for (int i = 0; i < nums.length; i++) {\n            int complement = target - nums[i];\n            if (map.containsKey(complement)) {\n                return new int[] { map.get(complement), i };\n            }\n            map.put(nums[i], i);\n        }\n        throw new IllegalArgumentException(\"No two sum solution\");\n    }\n}\n"
                     }
                 ]
@@ -41,15 +41,15 @@
                 "algorithm": "Iterate through the array, for each element, calculate the difference between the target and the current element. Check if this difference exists in the hashmap. If it does, return the indices. If not, store the current element in the hashmap.",
                 "implementations": [
                     {
-                        "language": "fa646bc3-327a-4d34-b80f-1f88eabdcf38",
+                        "language": "44b9b99d-57f4-4b37-9fe9-37fabeec5c97",
                         "value": "class Solution:\n    def twoSum(self, nums, target):\n        hashmap = {}\n        for i, num in enumerate(nums):\n            diff = target - num\n            if diff in hashmap:\n                return [hashmap[diff], i]\n            hashmap[num] = i"
                     },
                     {
-                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
+                        "language": "1ce11710-05c2-4e59-a089-fce2e4093652",
                         "value": "function twoSum(nums, target) {\n    const hashmap = {};\n    for (let i = 0; i < nums.length; i++) {\n        const diff = target - nums[i];\n        if (hashmap[diff] !== undefined) {\n            return [hashmap[diff], i];\n        }\n        hashmap[nums[i]] = i;\n    }\n}"
                     },
                     {
-                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
+                        "language": "8ad6625d-ae18-4b3b-9f6f-3c3745d84e20",
                         "value": "class Solution {\n    public int[] twoSum(int[] nums, int target) {\n        Map<Integer, Integer> hashmap = new HashMap<>();\n        for (int i = 0; i < nums.length; i++) {\n            int diff = target - nums[i];\n            if (hashmap.containsKey(diff)) {\n                return new int[]{hashmap.get(diff), i};\n            }\n            hashmap.put(nums[i], i);\n        }\n        return new int[0];\n    }\n}"
                     }
                 ]
@@ -278,15 +278,15 @@
                 "algorithm": "Initialize two pointers, one at the start and the other at the end of the string. Move both pointers towards the center, comparing the characters at each step. If any mismatch is found, return false. If the pointers cross each other without finding any mismatch, return true.",
                 "implementations": [
                     {
-                        "language": "fa646bc3-327a-4d34-b80f-1f88eabdcf38",
+                        "language": "44b9b99d-57f4-4b37-9fe9-37fabeec5c97",
                         "value": "class Solution:\n    def palindromeCheck(self, s: str) -> bool:\n        left, right = 0, len(s) - 1\n        while left < right:\n            if s[left] != s[right]:\n                return False\n            left += 1\n            right -= 1\n        return True\n"
                     },
                     {
-                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
+                        "language": "1ce11710-05c2-4e59-a089-fce2e4093652",
                         "value": "function palindromeCheck(s) {\n    let left = 0;\n    let right = s.length - 1;\n    while (left < right) {\n        if (s[left] !== s[right]) {\n            return false;\n        }\n        left++;\n        right--;\n    }\n    return true;\n}\n"
                     },
                     {
-                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
+                        "language": "8ad6625d-ae18-4b3b-9f6f-3c3745d84e20",
                         "value": "class Solution {\n    public static boolean palindromeCheck(String s) {\n        int left = 0, right = s.length() - 1;\n        while (left < right) {\n            if (s.charAt(left) != s.charAt(right)) {\n                return false;\n            }\n            left++;\n            right--;\n        }\n        return true;\n    }\n}\n"
                     }
                 ]
@@ -465,15 +465,15 @@
                 "algorithm": "Initialize a sum variable to 0. While the number `n` is greater than 0, extract the last digit using modulus operation (`n % 10`), add this digit to the sum, and remove the last digit from `n` using integer division by 10 (`n // 10`). Continue until `n` becomes 0. Return the sum.",
                 "implementations": [
                     {
-                        "language": "fa646bc3-327a-4d34-b80f-1f88eabdcf38",
+                        "language": "44b9b99d-57f4-4b37-9fe9-37fabeec5c97",
                         "value": "class Solution:\n    def sumofDigits(self, n: int) -> int:\n        total = 0\n        while n > 0:\n            total += n % 10\n            n //= 10\n        return total\n"
                     },
                     {
-                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
+                        "language": "1ce11710-05c2-4e59-a089-fce2e4093652",
                         "value": "function sumofDigits(n) {\n    let total = 0;\n    while (n > 0) {\n        total += n % 10;\n        n = Math.floor(n / 10);\n    }\n    return total;\n}\n"
                     },
                     {
-                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
+                        "language": "8ad6625d-ae18-4b3b-9f6f-3c3745d84e20",
                         "value": "class Solution {\n    public static int sumofDigits(int n) {\n        int total = 0;\n        while (n > 0) {\n            total += n % 10;\n            n /= 10;\n        }\n        return total;\n    }\n}\n"
                     }
                 ]
@@ -637,15 +637,15 @@
                 "algorithm": "Compare the two numbers using an if-else statement. Return the number that is greater.",
                 "implementations": [
                     {
-                        "language": "fa646bc3-327a-4d34-b80f-1f88eabdcf38",
+                        "language": "44b9b99d-57f4-4b37-9fe9-37fabeec5c97",
                         "value": "class Solution:\n    def maximumofTwoNumbers(self, a, b):\n        return a if a > b else b\n"
                     },
                     {
-                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
+                        "language": "1ce11710-05c2-4e59-a089-fce2e4093652",
                         "value": "function maximumofTwoNumbers(a, b) {\n    return a > b ? a : b;\n}\n"
                     },
                     {
-                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
+                        "language": "8ad6625d-ae18-4b3b-9f6f-3c3745d84e20",
                         "value": "class Solution {\n    public static int maximumofTwoNumbers(int a, int b) {\n        return a > b ? a : b;\n    }\n}\n"
                     }
                 ]
@@ -874,15 +874,15 @@
                 "algorithm": "Initialize a variable to store the sum of elements. Iterate through the array and add each element to the sum. Divide the total sum by the number of elements to get the average.",
                 "implementations": [
                     {
-                        "language": "fa646bc3-327a-4d34-b80f-1f88eabdcf38",
+                        "language": "44b9b99d-57f4-4b37-9fe9-37fabeec5c97",
                         "value": "class Solution:\n    def findtheAverageofNumbers(self, nums):\n        return sum(nums) // len(nums)\n"
                     },
                     {
-                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
+                        "language": "1ce11710-05c2-4e59-a089-fce2e4093652",
                         "value": "function findtheAverageofNumbers(nums) {\n    let sum = 0;\n    for (let num of nums) {\n        sum += num;\n    }\n    return (sum / nums.length).toFixed(1);\n}\n"
                     },
                     {
-                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
+                        "language": "8ad6625d-ae18-4b3b-9f6f-3c3745d84e20",
                         "value": "class Solution {\n    public static int findtheAverageofNumbers(int[] nums) {\n        int sum = 0;\n        int length = nums.length;\n        for (int i=0; i<length; i++) {\n            sum += nums[i];\n        }\n        return sum / length;\n    }\n}\n"
                     }
                 ]
@@ -956,15 +956,15 @@
                 "algorithm": "Initialize a counter to 0. Iterate through each character in the string. If the character is a vowel, increment the counter. Return the counter value.",
                 "implementations": [
                     {
-                        "language": "fa646bc3-327a-4d34-b80f-1f88eabdcf38",
+                        "language": "44b9b99d-57f4-4b37-9fe9-37fabeec5c97",
                         "value": "class Solution:\n    def counttheVowelsinaString(self, s):\n        vowels = set('aeiouAEIOU')\n        return sum(1 for char in s if char in vowels)\n"
                     },
                     {
-                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
+                        "language": "1ce11710-05c2-4e59-a089-fce2e4093652",
                         "value": "function counttheVowelsinaString(s) {\n    const vowels = new Set('aeiouAEIOU');\n    let count = 0;\n    for (let char of s) {\n        if (vowels.has(char)) {\n            count++;\n        }\n    }\n    return count;\n}\n"
                     },
                     {
-                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
+                        "language": "8ad6625d-ae18-4b3b-9f6f-3c3745d84e20",
                         "value": "import java.util.Set;\n\nclass Solution {\n    public static int counttheVowelsinaString(String s) {\n        Set<Character> vowels = Set.of('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U');\n        int count = 0;\n        for (char ch : s.toCharArray()) {\n            if (vowels.contains(ch)) {\n                count++;\n            }\n        }\n        return count;\n    }\n}"
                     }
                 ]
@@ -1038,15 +1038,15 @@
                 "algorithm": "Initialize a counter to 0. Iterate through each character in the string, converting both the string character and the target character to lower case. If they match, increment the counter. Return the counter value.",
                 "implementations": [
                     {
-                        "language": "fa646bc3-327a-4d34-b80f-1f88eabdcf38",
+                        "language": "44b9b99d-57f4-4b37-9fe9-37fabeec5c97",
                         "value": "class Solution:\n    def countOccurrencesofaCharacter(self, s, char):\n        char = char.lower()\n        return sum(1 for c in s.lower() if c == char)\n"
                     },
                     {
-                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
+                        "language": "1ce11710-05c2-4e59-a089-fce2e4093652",
                         "value": "function countOccurrencesofaCharacter(s, char) {\n    char = char.toLowerCase();\n    let count = 0;\n    for (let c of s.toLowerCase()) {\n        if (c === char) {\n            count++;\n        }\n    }\n    return count;\n}\n"
                     },
                     {
-                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
+                        "language": "8ad6625d-ae18-4b3b-9f6f-3c3745d84e20",
                         "value": "class Solution {\n    public static int countOccurrencesofaCharacter(String s, String character) {\n        Character ch = Character.toLowerCase(character.toCharArray()[0]);\n        int count = 0;\n        for (char c : s.toLowerCase().toCharArray()) {\n            if (ch == c) {\n                count++;\n            }\n        }\n        return count;\n    }\n}\n"
                     }
                 ]
@@ -1278,15 +1278,15 @@
                 "algorithm": "Initialize two pointers `start` and `end` to mark the window and a hash set to track unique characters. Move `end` to expand the window until a duplicate character is found. Then move `start` to remove characters from the window until the duplicate character is removed. Keep track of the maximum window size.",
                 "implementations": [
                     {
-                        "language": "fa646bc3-327a-4d34-b80f-1f88eabdcf38",
+                        "language": "44b9b99d-57f4-4b37-9fe9-37fabeec5c97",
                         "value": "class Solution:\n    def findLongestSubstringWithoutRepeatingCharacters(self, s):\n        char_set = set()\n        left = 0\n        max_length = 0\n\n        for right in range(len(s)):\n            while s[right] in char_set:\n                char_set.remove(s[left])\n                left += 1\n            char_set.add(s[right])\n            max_length = max(max_length, right - left + 1)\n\n        return max_length"
                     },
                     {
-                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
+                        "language": "1ce11710-05c2-4e59-a089-fce2e4093652",
                         "value": "function findLongestSubstringWithoutRepeatingCharacters(s) {\n    let charSet = new Set();\n    let left = 0;\n    let maxLength = 0;\n\n    for (let right = 0; right < s.length; right++) {\n        while (charSet.has(s[right])) {\n            charSet.delete(s[left]);\n            left++;\n        }\n        charSet.add(s[right]);\n        maxLength = Math.max(maxLength, right - left + 1);\n    }\n\n    return maxLength;\n}"
                     },
                     {
-                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
+                        "language": "8ad6625d-ae18-4b3b-9f6f-3c3745d84e20",
                         "value": "import java.util.HashSet;\n\nclass Solution {\n    public static int findLongestSubstringWithoutRepeatingCharacters(String s) {\n        HashSet<Character> charSet = new HashSet<>();\n        int left = 0, maxLength = 0;\n\n        for (int right = 0; right < s.length(); right++) {\n            while (charSet.contains(s.charAt(right))) {\n                charSet.remove(s.charAt(left));\n                left++;\n            }\n            charSet.add(s.charAt(right));\n            maxLength = Math.max(maxLength, right - left + 1);\n        }\n\n        return maxLength;\n    }\n}"
                     }
                 ]
@@ -1468,15 +1468,15 @@
                 "algorithm": "Initialize a prefix sum and a hash map with a count of 0 prefix sum. Iterate through the array, update the prefix sum, and check if the difference between the current prefix sum and `k` is in the hash map. If it is, increment the count. Finally, update the hash map with the current prefix sum.",
                 "implementations": [
                     {
-                        "language": "fa646bc3-327a-4d34-b80f-1f88eabdcf38",
+                        "language": "44b9b99d-57f4-4b37-9fe9-37fabeec5c97",
                         "value": "class Solution:\n    def subarraySumEqualsK(self, nums, k):\n        prefix_sum = 0\n        count = 0\n        prefix_sum_count = {0: 1}\n\n        for num in nums:\n            prefix_sum += num\n            if prefix_sum - k in prefix_sum_count:\n                count += prefix_sum_count[prefix_sum - k]\n            if prefix_sum in prefix_sum_count:\n                prefix_sum_count[prefix_sum] += 1\n            else:\n                prefix_sum_count[prefix_sum] = 1\n\n        return count"
                     },
                     {
-                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
+                        "language": "1ce11710-05c2-4e59-a089-fce2e4093652",
                         "value": "function subarraySumEqualsK(nums, k) {\n    let prefixSum = 0;\n    let count = 0;\n    let prefixSumCount = {0: 1};\n\n    for (let num of nums) {\n        prefixSum += num;\n        if (prefixSumCount[prefixSum - k] !== undefined) {\n            count += prefixSumCount[prefixSum - k];\n        }\n        if (prefixSumCount[prefixSum] !== undefined) {\n            prefixSumCount[prefixSum] += 1;\n        } else {\n            prefixSumCount[prefixSum] = 1;\n        }\n    }\n\n    return count;\n}"
                     },
                     {
-                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
+                        "language": "8ad6625d-ae18-4b3b-9f6f-3c3745d84e20",
                         "value": "import java.util.HashMap;\n\nclass Solution {\n    public static int subarraySumEqualsK(int[] nums, int k) {\n        int prefixSum = 0, count = 0;\n        HashMap<Integer, Integer> prefixSumCount = new HashMap<>();\n        prefixSumCount.put(0, 1);\n\n        for (int num : nums) {\n            prefixSum += num;\n            if (prefixSumCount.containsKey(prefixSum - k)) {\n                count += prefixSumCount.get(prefixSum - k);\n            }\n            prefixSumCount.put(prefixSum, prefixSumCount.getOrDefault(prefixSum, 0) + 1);\n        }\n\n        return count;\n    }\n}"
                     }
                 ]
@@ -1708,15 +1708,15 @@
                 "algorithm": "Use binary search on the smaller array. Partition the arrays such that the left part contains half of the combined total elements. Check if the maximum element on the left is less than the minimum element on the right for both arrays. If true, the median is found; otherwise, adjust the partitions.",
                 "implementations": [
                     {
-                        "language": "fa646bc3-327a-4d34-b80f-1f88eabdcf38",
+                        "language": "44b9b99d-57f4-4b37-9fe9-37fabeec5c97",
                         "value": "class Solution:\n    def medianofTwoSortedArrays(self, nums1, nums2):\n        # Ensure nums1 is the smaller array for efficiency\n        if len(nums1) > len(nums2):\n            nums1, nums2 = nums2, nums1\n\n        m, n = len(nums1), len(nums2)\n        low, high = 0, m\n\n        while low <= high:\n            # Partitioning for nums1 and nums2\n            partition1 = (low + high) // 2\n            partition2 = (m + n + 1) // 2 - partition1\n\n            # Edge cases where partition is at the start or end of the arrays\n            maxLeft1 = float('-inf') if partition1 == 0 else nums1[partition1 - 1]\n            minRight1 = float('inf') if partition1 == m else nums1[partition1]\n\n            maxLeft2 = float('-inf') if partition2 == 0 else nums2[partition2 - 1]\n            minRight2 = float('inf') if partition2 == n else nums2[partition2]\n\n            # Check if correct partition is found\n            if maxLeft1 <= minRight2 and maxLeft2 <= minRight1:\n                # If the total number of elements is odd\n                if (m + n) % 2 == 1:\n                    return float(max(maxLeft1, maxLeft2))\n                # If the total number of elements is even\n                else:\n                    return float(max(maxLeft1, maxLeft2) + min(minRight1, minRight2)) / 2\n            # Move the binary search left or right\n            elif maxLeft1 > minRight2:\n                high = partition1 - 1\n            else:\n                low = partition1 + 1"
                     },
                     {
-                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
+                        "language": "1ce11710-05c2-4e59-a089-fce2e4093652",
                         "value": "function medianofTwoSortedArrays(nums1, nums2) {\n    if (nums1.length > nums2.length) [nums1, nums2] = [nums2, nums1];\n    let x = nums1.length, y = nums2.length;\n    let low = 0, high = x;\n    while (low <= high) {\n        let partitionX = (low + high) >> 1;\n        let partitionY = ((x + y + 1) >> 1) - partitionX;\n        let maxX = partitionX == 0 ? -Infinity : nums1[partitionX - 1];\n        let maxY = partitionY == 0 ? -Infinity : nums2[partitionY - 1];\n        let minX = partitionX == x ? Infinity : nums1[partitionX];\n        let minY = partitionY == y ? Infinity : nums2[partitionY];\n        if (maxX <= minY && maxY <= minX) {\n            if ((x + y) % 2 == 0)\n                return ((Math.max(maxX, maxY) + Math.min(minX, minY)) / 2).toFixed(1);\n            else\n                return Math.max(maxX, maxY).toFixed(1);\n        } else if (maxX > minY) {\n            high = partitionX - 1;\n        } else {\n            low = partitionX + 1;\n        }\n    }\n}"
                     },
                     {
-                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
+                        "language": "8ad6625d-ae18-4b3b-9f6f-3c3745d84e20",
                         "value": "class Solution {\n    public static float medianofTwoSortedArrays(int[] nums1, int[] nums2) {\n        if (nums1.length > nums2.length){\n            int[] temp = nums1;\n            nums1 = nums2;\n            nums2 = temp;\n        }\n        int x = nums1.length, y = nums2.length;\n        int low = 0, high = x; \n        while (low <= high) {\n            int partitionX = (low + high) / 2;\n            int partitionY = (x + y + 1) / 2 - partitionX;\n            int maxX = (partitionX == 0) ? Integer.MIN_VALUE : nums1[partitionX - 1];\n            int maxY = (partitionY == 0) ? Integer.MIN_VALUE : nums2[partitionY - 1];\n            int minX = (partitionX == x) ? Integer.MAX_VALUE : nums1[partitionX];\n            int minY = (partitionY == y) ? Integer.MAX_VALUE : nums2[partitionY];\n            if (maxX <= minY && maxY <= minX) {\n                if ((x + y) % 2 == 0)\n                    return ((float)Math.max(maxX, maxY) + Math.min(minX, minY)) / 2;\n                else\n                    return (float)Math.max(maxX, maxY);\n            } else if (maxX > minY) {\n                high = partitionX - 1;\n            } else {\n                low = partitionX + 1;\n            }\n        }\n        throw new IllegalArgumentException();\n    }\n}"
                     }
                 ]
@@ -1868,15 +1868,15 @@
                 "algorithm": "Initialize a HashSet with all numbers. For each number, check if it's the start of a sequence. If so, count the length of that sequence and update the maximum length found.",
                 "implementations": [
                     {
-                        "language": "fa646bc3-327a-4d34-b80f-1f88eabdcf38",
+                        "language": "44b9b99d-57f4-4b37-9fe9-37fabeec5c97",
                         "value": "class Solution:\n    def longestConsecutiveSequence(self, nums):\n        num_set = set(nums)\n        longest_streak = 0\n        for num in num_set:\n            if num - 1 not in num_set:\n                current_num = num\n                current_streak = 1\n                while current_num + 1 in num_set:\n                    current_num += 1\n                    current_streak += 1\n                longest_streak = max(longest_streak, current_streak)\n        return longest_streak"
                     },
                     {
-                        "language": "2cdc3fd7-ae38-437b-afe6-e1203fc6aa90",
+                        "language": "1ce11710-05c2-4e59-a089-fce2e4093652",
                         "value": "function longestConsecutiveSequence(nums) {\n    const numSet = new Set(nums);\n    let longestStreak = 0;\n    for (let num of numSet) {\n        if (!numSet.has(num - 1)) {\n            let currentNum = num;\n            let currentStreak = 1;\n            while (numSet.has(currentNum + 1)) {\n                currentNum += 1;\n                currentStreak += 1;\n            }\n            longestStreak = Math.max(longestStreak, currentStreak);\n        }\n    }\n    return longestStreak;\n}"
                     },
                     {
-                        "language": "a048af74-e4f1-43cb-9fa5-a55f6189892e",
+                        "language": "8ad6625d-ae18-4b3b-9f6f-3c3745d84e20",
                         "value": "import java.util.HashSet;\nimport java.util.Set;\n\nclass Solution {\n    public static int longestConsecutiveSequence(int[] nums) {\n        Set<Integer> numSet = new HashSet<>();\n        for (int num : nums) {\n            numSet.add(num);\n        }\n        int longestStreak = 0;\n        for (int num : numSet) {\n            if (!numSet.contains(num - 1)) {\n                int currentNum = num;\n                int currentStreak = 1;\n                while (numSet.contains(currentNum + 1)) {\n                    currentNum += 1;\n                    currentStreak += 1;\n                }\n                longestStreak = Math.max(longestStreak, currentStreak);\n            }\n        }\n        return longestStreak;\n    }\n}\n"
                     }
                 ]

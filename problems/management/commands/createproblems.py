@@ -33,4 +33,4 @@ class Command(BaseCommand):
             except Exception as ex:
                 CommandError(f"Failed to create problem {problem['name']}: {ex}")
 
-        print("Command ran successfully ...")
+        print("Command executed successfully ...")

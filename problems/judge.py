@@ -1,4 +1,4 @@
-import json
+import json, os
 from typing import List
 from django.conf import settings
 
@@ -159,6 +159,9 @@ class JudgeManager:
             return code
 
     def run(self, code, language, stdin):
+        print(self.url + "/submissions?wait=true")
+        print(os.environ.get("JUDGE_API_KEY"))
+        return
         try:
             response = requests.post(
                 self.url + "/submissions?wait=true",
@@ -166,9 +169,12 @@ class JudgeManager:
                     "source_code": code,
                     "language_id": language,
                     "stdin": stdin
+                },
+                headers={
+                    "x-rapidapi-host": "judge0-ce.p.rapidapi.com",
+                    "x-rapidapi-key": os.environ.get("JUDGE_API_KEY")
                 }
             )
-            print("Running code:", code)
             if not response.ok:
                 return False, response.content
             
@@ -196,7 +202,11 @@ class JudgeManager:
         
             response = requests.post(
                 self.url + "/submissions/batch",
-                json = body
+                json = body,
+                headers={
+                    "x-rapidapi-host": "judge0-ce.p.rapidapi.com",
+                    "x-rapidapi-key": os.environ.get("JUDGE_API_KEY")
+                }
             )
 
             if not response.ok:
@@ -210,7 +220,11 @@ class JudgeManager:
     def get_batch(self, tokens):
         try:
             response = requests.get(
-                self.url + "/submissions/batch?tokens=" + ",".join(tokens)
+                self.url + "/submissions/batch?tokens=" + ",".join(tokens),
+                headers={
+                    "x-rapidapi-host": "judge0-ce.p.rapidapi.com",
+                    "x-rapidapi-key": os.environ.get("JUDGE_API_KEY")
+                }
             )
 
             if not response.ok:

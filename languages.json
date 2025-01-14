@@ -1,0 +1,14 @@
+[
+    {
+        "name": "python",
+        "judge_id": 92
+    },
+    {
+        "name": "java",
+        "judge_id": 91
+    },
+    {
+        "name": "javascript",
+        "judge_id": 93
+    }
+]
