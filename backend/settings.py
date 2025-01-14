@@ -39,8 +39,7 @@ INSTALLED_APPS = [
     'problems',
     'accounts',
     'rest_framework_simplejwt',
-    'rest_framework_simplejwt.token_blacklist',
-    'debug_toolbar'
+    'rest_framework_simplejwt.token_blacklist'
 ]
 
 MIDDLEWARE = [
@@ -52,8 +51,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    'django.middleware.clickjacking.XFrameOptionsMiddleware'
 ]
 
 INTERNAL_IPS = [
