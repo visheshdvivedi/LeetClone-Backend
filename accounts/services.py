@@ -2,7 +2,6 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 
 from .models import Account, LoginType
-from .blob import upload_file_from_url
 
 from urllib.parse import urlencode
 from typing import Dict, Any
